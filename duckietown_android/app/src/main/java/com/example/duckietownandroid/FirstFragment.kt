@@ -1,10 +1,12 @@
 package com.example.duckietownandroid
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.duckietownandroid.databinding.FragmentFirstBinding
 
@@ -31,9 +33,15 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val act = activity
+        var num = (act as MainActivity?)?.number
+        num = if (num == null) -1 else (num + 1) % 5
+        (act as MainActivity?)?.number = num
 
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            val bundle = bundleOf("number" to num)
+            Log.d("UI", "Pass number $num")
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
         }
     }
 

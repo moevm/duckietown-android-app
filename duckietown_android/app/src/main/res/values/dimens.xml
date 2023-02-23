@@ -1,3 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="device_item_name_size">12pt</dimen>
+    <dimen name="device_item_short_status">8pt</dimen>
+    <dimen name="device_item_status_icon_width">40dp</dimen>
+    <dimen name="device_item_status_icon_margin">7dp</dimen>
 </resources>

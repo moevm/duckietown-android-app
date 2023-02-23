@@ -9,4 +9,8 @@
 
     <string name="hello_first_fragment">Duckietown Android App</string>
     <string name="hello_second_fragment">Duckietown Android App Settings</string>
+    <string name="device_list_status_placeholder">Online: %d/%d</string>
+    <string name="device_list_status">Online: %d/%d</string>
+    <string name="device_list_item_placeholder">Device Item</string>
+    <string name="device_item_status_icon">Device status</string>
 </resources>
