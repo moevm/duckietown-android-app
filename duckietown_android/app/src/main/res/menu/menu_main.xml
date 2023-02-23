@@ -2,9 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.duckietownandroid.MainActivity">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/menu_item_test"
+        android:icon="@drawable/settings"
+        android:title=""
+        app:showAsAction="always"/>
+
 </menu>
