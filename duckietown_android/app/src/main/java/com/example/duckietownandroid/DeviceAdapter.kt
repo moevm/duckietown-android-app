@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class DeviceAdapter(private val dataSet: MutableList<DeviceItem>,
-                    private val listener: (DeviceItem) -> Unit) :
+                    private val listener: (Int) -> Unit) :
     RecyclerView.Adapter<DeviceAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -45,7 +45,7 @@ class DeviceAdapter(private val dataSet: MutableList<DeviceItem>,
             true -> R.drawable.device_item_status_online
             else -> R.drawable.device_item_status_offline
         })
-        viewHolder.itemView.setOnClickListener{listener(item)}
+        viewHolder.itemView.setOnClickListener{listener(position)}
     }
 
     // Return the size of your dataset (invoked by the layout manager)

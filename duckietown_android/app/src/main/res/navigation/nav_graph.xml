@@ -3,26 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/MainFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.duckietownandroid.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/MainFragment"
+        android:name="com.example.duckietownandroid.MainFragment"
+        android:label="@string/main_fragment_label"
+        tools:layout="@layout/fragment_main">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_MainFragment_to_ListFragment"
+            app:destination="@id/ListFragment" />
+        <action
+            android:id="@+id/action_MainFragment_to_MapFragment"
+            app:destination="@id/MapFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/ListFragment"
         android:name="com.example.duckietownandroid.FragmentDeviceList"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_list">
-
+        android:label="@string/list_fragment_label"
+        tools:layout="@layout/fragment_list" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_ListFragment_to_AutobotInfoFragment"
+            app:destination="@id/AutobotInfoFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/MapFragment"
+        android:name="com.example.duckietownandroid.MapFragment"
+        android:label="@string/map_fragment_label"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/AutobotInfoFragment"
+        android:name="com.example.duckietownandroid.AutobotInfoFragment"
+        android:label="@string/autobot_info_title"
+        tools:layout="@layout/fragment_autobot_info" />
 </navigation>
