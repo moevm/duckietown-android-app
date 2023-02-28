@@ -36,5 +36,14 @@
         android:id="@+id/AutobotInfoFragment"
         android:name="com.example.duckietownandroid.AutobotInfoFragment"
         android:label="@string/autobot_info_title"
-        tools:layout="@layout/fragment_autobot_info" />
+        tools:layout="@layout/fragment_autobot_info" >
+        <action
+            android:id="@+id/action_AutobotInfoFragment_to_fragmentBotControl"
+            app:destination="@id/fragmentBotControl" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentBotControl"
+        android:name="com.example.duckietownandroid.FragmentBotControl"
+        android:label="fragment_bot_control"
+        tools:layout="@layout/fragment_bot_control" />
 </navigation>

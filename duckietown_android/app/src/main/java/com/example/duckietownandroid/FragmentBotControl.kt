@@ -6,19 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
-import com.example.duckietownandroid.databinding.FragmentAutobotInfoBinding
-
+import com.example.duckietownandroid.databinding.FragmentBotControlBinding
 
 /**
  * A simple [Fragment] subclass.
- * Use the [AutobotInfoFragment.newInstance] factory method to
+ * Use the [FragmentBotControl.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AutobotInfoFragment : Fragment() {
-    private var _binding: FragmentAutobotInfoBinding? = null
+class FragmentBotControl : Fragment() {
+    private var _binding: FragmentBotControlBinding? = null
     private val binding get() = _binding!!
+
     private var autobot = DeviceItem(0, "Autobot")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,32 +28,20 @@ class AutobotInfoFragment : Fragment() {
             R.string.autobot_info_title,
             autobot.number
         )
-        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = when (autobot.is_online) {
-            true -> "Online"
-            else -> "Offline"
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAutobotInfoBinding.inflate(inflater, container, false)
+        _binding = FragmentBotControlBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Navigate to bot control
-        binding.joystickButton.setOnClickListener {
-            val bundle = bundleOf("number" to autobot.number-1)
-            findNavController().navigate(
-                R.id.action_AutobotInfoFragment_to_fragmentBotControl,
-                bundle
-            )
-        }
-
+        // TODO: add control button listeners
     }
 
     override fun onDestroyView() {
@@ -63,5 +49,4 @@ class AutobotInfoFragment : Fragment() {
         _binding = null
         (activity as AppCompatActivity?)?.supportActionBar?.subtitle = ""
     }
-
 }

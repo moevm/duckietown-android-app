@@ -28,17 +28,31 @@
     <string name="reply_title">Default reply action</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="net_title">Local / Web</string>
+    <string name="external_url_title">External url</string>
+    <string name="bot_url_title">Bot url</string>
+
     <string name="main_autobots_button">Autobots</string>
     <string name="main_watchtowers_button">Watchtowers</string>
     <string name="main_cameras_button">Cameras</string>
     <string name="main_map_button">Map</string>
     <string name="main_aruco_button">Scan ArUco</string>
     <string name="map_send_button">Send</string>
+
+    <!-- Bot info -->
+    <string name="bot_status_title">Bot status</string>
+    <string name="battery_title">Battery</string>
+    <string name="temp_title">Temperature</string>
+    <string name="memory_title">Memory(used)</string>
+    <string name="joystick_title">Joystick</string>
+    <string name="demo_title">Start Demo</string>
+    <string name="bot_video_title">Video</string>
+    <string name="set_time_title">Set time</string>
+
+    <!-- Bot control -->
+    <string name="bot_info_title">Bot information</string>
+    <string name="bot_speed_title">Current speed</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
