@@ -26,14 +26,6 @@ class AutobotInfoFragment : Fragment() {
         arguments?.let {
             autobot = AppData.autobots[it.getInt("number")]
         }
-        (activity as AppCompatActivity?)?.supportActionBar?.title = getString(
-            R.string.autobot_info_title,
-            autobot.number
-        )
-        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = when (autobot.is_online) {
-            true -> "Online"
-            else -> "Offline"
-        }
     }
 
     override fun onCreateView(
@@ -55,7 +47,23 @@ class AutobotInfoFragment : Fragment() {
                 bundle
             )
         }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        (activity as AppCompatActivity?)?.supportActionBar?.title = getString(
+            R.string.autobot_info_title,
+            autobot.number
+        )
+        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = when (autobot.is_online) {
+            true -> "Online"
+            else -> "Offline"
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("number", autobot.number+1)
     }
 
     override fun onDestroyView() {
