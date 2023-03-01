@@ -8,9 +8,12 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +22,7 @@ import com.example.duckietownandroid.databinding.FragmentListBinding
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class FragmentDeviceList : Fragment() {
+class DeviceListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
     private var data = MutableList<DeviceItem>(0){ DeviceItem(0, "name") }
@@ -70,7 +73,9 @@ class FragmentDeviceList : Fragment() {
             else -> data
         }
         itemListener = when(type_name){
-            "autobots" -> {position: Int -> adapterOnAutobotItemClick(position) }
+            "autobots" -> {position: Int -> adapterOnAutobotItemClick(position)}
+            "watchtowers" -> {position: Int -> adapterOnWatchtowerItemClick(position)}
+            "cameras" -> {position: Int -> adapterOnCameraItemClick(position)}
             else -> itemListener
         }
         val titleName = when(type_name){
@@ -80,6 +85,7 @@ class FragmentDeviceList : Fragment() {
             else -> "Unknown Title"
         }
         (activity as AppCompatActivity?)?.supportActionBar?.title = titleName
+        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = ""
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -100,7 +106,17 @@ class FragmentDeviceList : Fragment() {
 
     private fun adapterOnAutobotItemClick(position: Int){
         val bundle = bundleOf("number" to position)
-        findNavController().navigate(R.id.action_ListFragment_to_AutobotInfoFragment, bundle)
+        safeNavigation(findNavController(), R.id.action_ListFragment_to_AutobotInfoFragment, bundle)
+    }
+
+    private fun adapterOnWatchtowerItemClick(position: Int) {
+        val bundle = bundleOf("number" to position, "deviceType" to "watchtower")
+        safeNavigation(findNavController(), R.id.action_ListFragment_to_imageStreamFragment, bundle)
+    }
+
+    private fun adapterOnCameraItemClick(position: Int) {
+        val bundle = bundleOf("number" to position)
+        safeNavigation(findNavController(), R.id.action_ListFragment_to_cameraFragment, bundle)
     }
 
     override fun onDestroyView() {

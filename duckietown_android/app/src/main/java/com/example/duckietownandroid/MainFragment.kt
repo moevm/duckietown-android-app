@@ -42,13 +42,16 @@ class MainFragment : Fragment() {
                 else -> "unknown"
             }
             val bundle = bundleOf("list_type" to listType)
-            findNavController().navigate(R.id.action_MainFragment_to_ListFragment, bundle)
+            safeNavigation(findNavController(), R.id.action_MainFragment_to_ListFragment, bundle)
         }
         binding.autobotsButton.setOnClickListener(listButtonListener)
         binding.watchtowersButton.setOnClickListener(listButtonListener)
         binding.camerasButton.setOnClickListener(listButtonListener)
         binding.mapButton.setOnClickListener {
-            findNavController().navigate(R.id.action_MainFragment_to_MapFragment)
+            safeNavigation(findNavController(), R.id.action_MainFragment_to_MapFragment)
+        }
+        binding.arucoButton.setOnClickListener {
+            safeNavigation(findNavController(), R.id.action_MainFragment_to_arUcoFragment)
         }
     }
 

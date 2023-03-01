@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import com.example.duckietownandroid.databinding.FragmentAutobotInfoBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -18,7 +17,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class AutobotInfoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+    private var _binding: FragmentAutobotInfoBinding? = null
+    private val binding get() = _binding!!
     private var autobot = DeviceItem(0, "Autobot")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,27 +26,51 @@ class AutobotInfoFragment : Fragment() {
         arguments?.let {
             autobot = AppData.autobots[it.getInt("number")]
         }
-        (activity as AppCompatActivity?)?.supportActionBar?.title = getString(
-            R.string.autobot_info_title,
-            autobot.number
-        )
-        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = when(autobot.is_online){
-            true -> "Online"
-            else -> "Offline"
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_autobot_info, container, false)
+        _binding = FragmentAutobotInfoBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = ""
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Navigate to bot control
+        binding.joystickButton.setOnClickListener {
+            val bundle = bundleOf("number" to autobot.number-1)
+            safeNavigation(
+                findNavController(),
+                R.id.action_AutobotInfoFragment_to_fragmentBotControl,
+                bundle
+            )
+        }
+
+        binding.botVideoButton.setOnClickListener {
+            val bundle = bundleOf("number" to autobot.number - 1, "deviceType" to "autobot")
+            safeNavigation(findNavController(), R.id.action_AutobotInfoFragment_to_imageStreamFragment, bundle)
+        }
     }
+
+    override fun onStart() {
+        super.onStart()
+        (activity as AppCompatActivity?)?.supportActionBar?.title = getString(
+            R.string.autobot_info_title,
+            autobot.number
+        )
+        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = when (autobot.is_online) {
+            true -> "Online"
+            else -> "Offline"
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("number", autobot.number-1)
+    }
+
 
 }
