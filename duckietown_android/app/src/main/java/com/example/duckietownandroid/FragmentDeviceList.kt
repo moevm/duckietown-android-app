@@ -67,6 +67,7 @@ class FragmentDeviceList : Fragment() {
         itemListener = when(type_name){
             "autobots" -> {position: Int -> adapterOnAutobotItemClick(position)}
             "watchtowers" -> {position: Int -> adapterOnWatchtowerItemClick(position)}
+            "cameras" -> {position: Int -> adapterOnCameraItemClick(position)}
             else -> itemListener
         }
         val titleName = when(type_name){
@@ -91,6 +92,11 @@ class FragmentDeviceList : Fragment() {
     private fun adapterOnWatchtowerItemClick(position: Int) {
         val bundle = bundleOf("number" to position)
         findNavController().navigate(R.id.action_ListFragment_to_watchtowerFragment, bundle)
+    }
+
+    private fun adapterOnCameraItemClick(position: Int) {
+        val bundle = bundleOf("number" to position)
+        findNavController().navigate(R.id.action_ListFragment_to_cameraFragment, bundle)
     }
 
     override fun onDestroyView() {
