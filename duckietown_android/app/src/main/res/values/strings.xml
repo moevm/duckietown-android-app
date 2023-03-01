@@ -19,6 +19,8 @@
     <string name="watchtowers_title">Watchtowers</string>
     <string name="cameras_title">Cameras</string>
     <string name="autobot_info_title">Autobot %d</string>
+    <string name="watchtower_info_title">Watchtower %d</string>
+    <string name="camera_info_title">Camera %d</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
@@ -52,7 +54,4 @@
     <!-- Bot control -->
     <string name="bot_info_title">Bot information</string>
     <string name="bot_speed_title">Current speed</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_ListFragment_to_AutobotInfoFragment"
             app:destination="@id/AutobotInfoFragment" />
+        <action
+            android:id="@+id/action_ListFragment_to_watchtowerFragment"
+            app:destination="@id/watchtowerFragment" />
     </fragment>
     <fragment
         android:id="@+id/MapFragment"
@@ -46,4 +49,9 @@
         android:name="com.example.duckietownandroid.FragmentBotControl"
         android:label="fragment_bot_control"
         tools:layout="@layout/fragment_bot_control" />
+    <fragment
+        android:id="@+id/watchtowerFragment"
+        android:name="com.example.duckietownandroid.WatchtowerFragment"
+        android:label="fragment_watchtower"
+        tools:layout="@layout/fragment_watchtower" />
 </navigation>
