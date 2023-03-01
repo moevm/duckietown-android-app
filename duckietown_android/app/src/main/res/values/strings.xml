@@ -19,6 +19,8 @@
     <string name="watchtowers_title">Watchtowers</string>
     <string name="cameras_title">Cameras</string>
     <string name="autobot_info_title">Autobot %d</string>
+    <string name="watchtower_info_title">Watchtower %d</string>
+    <string name="camera_info_title">Camera %d</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
@@ -39,6 +41,4 @@
     <string name="main_map_button">Map</string>
     <string name="main_aruco_button">Scan ArUco</string>
     <string name="map_send_button">Send</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
