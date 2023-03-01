@@ -50,6 +50,9 @@ class MainFragment : Fragment() {
         binding.mapButton.setOnClickListener {
             findNavController().navigate(R.id.action_MainFragment_to_MapFragment)
         }
+        binding.arucoButton.setOnClickListener {
+            findNavController().navigate(R.id.action_MainFragment_to_arUcoFragment)
+        }
     }
 
     override fun onDestroyView() {

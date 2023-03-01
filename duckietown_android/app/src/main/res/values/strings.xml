@@ -58,4 +58,7 @@
     <!-- Camera -->
     <string name="previous_button">Previous</string>
     <string name="next_button">Next</string>
+
+    <!-- ArUco -->
+    <string name="aruco_title">Scan ArUco</string>
 </resources>
