@@ -1,11 +1,13 @@
 package com.example.duckietownandroid
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import kotlin.math.log
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -14,17 +16,20 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [WatchtowerFragment.newInstance] factory method to
+ * Use the [ImageStreamFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class WatchtowerFragment : Fragment() {
+class ImageStreamFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var watchtower = DeviceItem(0, "Watchtower")
+    private var device = DeviceItem(0, "Watchtower")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            watchtower = AppData.watchtowers[it.getInt("number")]
+            when (it.getString("deviceType")) {
+                "autobot" -> device = AppData.autobots[it.getInt("number")]
+                "watchtower" -> device = AppData.watchtowers[it.getInt("number")]
+            }
         }
     }
 
@@ -33,17 +38,15 @@ class WatchtowerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_watchtower, container, false)
+        return inflater.inflate(R.layout.fragment_image_stream, container, false)
     }
 
     override fun onStart() {
         super.onStart()
 
-        (activity as AppCompatActivity?)?.supportActionBar?.title = getString(
-            R.string.watchtower_info_title,
-            watchtower.number
-        )
-        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = when(watchtower.is_online){
+        (activity as AppCompatActivity?)?.supportActionBar?.title = device.name
+        Log.d("DEVICE", device.name)
+        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = when(device.is_online){
             true -> "Online"
             else -> "Offline"
         }

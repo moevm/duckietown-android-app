@@ -17,7 +17,7 @@ import com.example.duckietownandroid.databinding.FragmentListBinding
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class FragmentDeviceList : Fragment() {
+class DeviceListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
     private var data = MutableList<DeviceItem>(0){ DeviceItem(0, "name") }
@@ -77,6 +77,7 @@ class FragmentDeviceList : Fragment() {
             else -> "Unknown Title"
         }
         (activity as AppCompatActivity?)?.supportActionBar?.title = titleName
+        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = ""
     }
 
     private fun adapterOnItemClick(position: Int){
@@ -90,8 +91,8 @@ class FragmentDeviceList : Fragment() {
     }
 
     private fun adapterOnWatchtowerItemClick(position: Int) {
-        val bundle = bundleOf("number" to position)
-        findNavController().navigate(R.id.action_ListFragment_to_watchtowerFragment, bundle)
+        val bundle = bundleOf("number" to position, "deviceType" to "watchtower")
+        findNavController().navigate(R.id.action_ListFragment_to_imageStreamFragment, bundle)
     }
 
     private fun adapterOnCameraItemClick(position: Int) {
