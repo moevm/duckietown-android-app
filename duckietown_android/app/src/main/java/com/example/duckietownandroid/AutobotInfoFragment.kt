@@ -47,6 +47,11 @@ class AutobotInfoFragment : Fragment() {
                 bundle
             )
         }
+
+        binding.botVideoButton.setOnClickListener {
+            val bundle = bundleOf("number" to autobot.number - 1, "deviceType" to "autobot")
+            findNavController().navigate(R.id.action_AutobotInfoFragment_to_imageStreamFragment, bundle)
+        }
     }
 
     override fun onStart() {
@@ -66,10 +71,5 @@ class AutobotInfoFragment : Fragment() {
         outState.putInt("number", autobot.number-1)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = ""
-    }
 
 }

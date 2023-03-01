@@ -10,10 +10,10 @@ import com.example.duckietownandroid.databinding.FragmentBotControlBinding
 
 /**
  * A simple [Fragment] subclass.
- * Use the [FragmentBotControl.newInstance] factory method to
+ * Use the [BotControlFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FragmentBotControl : Fragment() {
+class BotControlFragment : Fragment() {
     private var _binding: FragmentBotControlBinding? = null
     private val binding get() = _binding!!
 

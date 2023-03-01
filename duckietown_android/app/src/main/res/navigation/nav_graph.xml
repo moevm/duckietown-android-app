@@ -23,18 +23,18 @@
     </fragment>
     <fragment
         android:id="@+id/ListFragment"
-        android:name="com.example.duckietownandroid.FragmentDeviceList"
+        android:name="com.example.duckietownandroid.DeviceListFragment"
         android:label="@string/list_fragment_label"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_ListFragment_to_AutobotInfoFragment"
             app:destination="@id/AutobotInfoFragment" />
         <action
-            android:id="@+id/action_ListFragment_to_watchtowerFragment"
-            app:destination="@id/watchtowerFragment" />
-        <action
             android:id="@+id/action_ListFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/action_ListFragment_to_imageStreamFragment"
+            app:destination="@id/imageStreamFragment" />
     </fragment>
     <fragment
         android:id="@+id/MapFragment"
@@ -49,17 +49,20 @@
         <action
             android:id="@+id/action_AutobotInfoFragment_to_fragmentBotControl"
             app:destination="@id/fragmentBotControl" />
+        <action
+            android:id="@+id/action_AutobotInfoFragment_to_imageStreamFragment"
+            app:destination="@id/imageStreamFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentBotControl"
-        android:name="com.example.duckietownandroid.FragmentBotControl"
+        android:name="com.example.duckietownandroid.BotControlFragment"
         android:label="fragment_bot_control"
         tools:layout="@layout/fragment_bot_control" />
     <fragment
-        android:id="@+id/watchtowerFragment"
-        android:name="com.example.duckietownandroid.WatchtowerFragment"
-        android:label="fragment_watchtower"
-        tools:layout="@layout/fragment_watchtower" />
+        android:id="@+id/imageStreamFragment"
+        android:name="com.example.duckietownandroid.ImageStreamFragment"
+        android:label="fragment_image_stream"
+        tools:layout="@layout/fragment_image_stream" />
     <fragment
         android:id="@+id/cameraFragment"
         android:name="com.example.duckietownandroid.CameraFragment"
