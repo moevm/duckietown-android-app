@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
@@ -27,6 +29,10 @@ class FragmentDeviceList : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -44,7 +50,6 @@ class FragmentDeviceList : Fragment() {
 
         val typeName = arguments?.getString("list_type") ?: "unknown"
         setCurrentDevices(typeName)
-
         binding.deviceListHeader.text = getString(
             R.string.device_list_status,
             data.count(){item -> item.is_online},
@@ -75,6 +80,17 @@ class FragmentDeviceList : Fragment() {
             else -> "Unknown Title"
         }
         (activity as AppCompatActivity?)?.supportActionBar?.title = titleName
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.menu_filter)
+        item.isVisible = true
+        item.setOnMenuItemClickListener {
+            val filter = DialogFilterFragment()
+            filter.show(activity?.supportFragmentManager!!, "dialog")
+            true
+        }
     }
 
     private fun adapterOnItemClick(position: Int){

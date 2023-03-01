@@ -25,7 +25,8 @@
             android:layout_margin="@dimen/main_logo_margin"
             android:layout_marginTop="@dimen/main_logo_margin_top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3"
             android:src="@drawable/duckietown_logo" />
 
         <Button

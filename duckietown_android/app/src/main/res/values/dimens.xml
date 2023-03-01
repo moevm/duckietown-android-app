@@ -6,4 +6,9 @@
     <dimen name="device_item_status_icon_margin">7dp</dimen>
     <dimen name="main_logo_margin">10dp</dimen>
     <dimen name="main_logo_margin_top">20dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
+    <dimen name="filter_padding">25dp</dimen>
+    <dimen name="filter_hints_size">10pt</dimen>
+    <dimen name="filter_editable_height">50dp</dimen>
 </resources>
