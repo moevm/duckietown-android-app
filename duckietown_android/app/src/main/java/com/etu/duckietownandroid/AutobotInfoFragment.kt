@@ -1,4 +1,4 @@
-package com.example.duckietownandroid
+package com.etu.duckietownandroid
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import com.example.duckietownandroid.databinding.FragmentAutobotInfoBinding
+import com.etu.duckietownandroid.databinding.FragmentAutobotInfoBinding
 
 
 /**

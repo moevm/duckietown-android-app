@@ -1,19 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.duckietownandroid.MainActivity">
+    tools:context="com.etu.duckietownandroid.MainActivity">
 
     <item
         android:id="@+id/menu_filter"
         android:icon="@drawable/filter"
-        android:title="Filter"
+        android:title="@string/menu_item_filter"
         android:visible="false"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_item_test"
         android:icon="@drawable/settings"
-        android:title="Settings"
+        android:title="@string/menu_item_settings"
         app:showAsAction="always"/>
 
 </menu>

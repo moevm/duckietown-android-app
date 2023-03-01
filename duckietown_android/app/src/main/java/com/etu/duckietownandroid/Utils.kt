@@ -1,4 +1,4 @@
-package com.example.duckietownandroid
+package com.etu.duckietownandroid
 
 import android.os.Bundle
 import androidx.annotation.IdRes

@@ -24,6 +24,9 @@
     <string name="net_title">Local / Web</string>
     <string name="external_url_title">External url</string>
     <string name="bot_url_title">Bot url</string>
+    <string name="menu_about_title">About</string>
+    <string name="menu_about_text">This application created for Duckietown Autolab in ETU. Authors are Selezneva Anastasia, Tinyakov Sergey and Tsaplin Ilya</string>
+    <string name="menu_about_positive_button_text">OK</string>
 
     <string name="main_autobots_button">Autobots</string>
     <string name="main_watchtowers_button">Watchtowers</string>
@@ -58,4 +61,6 @@
 
     <!-- ArUco -->
     <string name="aruco_title">Scan ArUco</string>
+    <string name="menu_item_filter">Filter</string>
+    <string name="menu_item_settings">Settings</string>
 </resources>

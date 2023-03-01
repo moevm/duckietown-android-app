@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    namespace 'com.example.duckietownandroid'
+    namespace 'com.etu.duckietownandroid'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.duckietownandroid"
-        minSdk 24
+        applicationId "com.etu.duckietownandroid"
+        minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"

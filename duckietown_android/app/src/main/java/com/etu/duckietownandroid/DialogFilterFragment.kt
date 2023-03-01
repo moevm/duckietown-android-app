@@ -1,16 +1,10 @@
-package com.example.duckietownandroid
+package com.etu.duckietownandroid
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.SeekBar
-import android.widget.SeekBar.OnSeekBarChangeListener
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.slider.RangeSlider
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/MainFragment"
-        android:name="com.example.duckietownandroid.MainFragment"
+        android:name="com.etu.duckietownandroid.MainFragment"
         android:label="@string/main_fragment_label"
         tools:layout="@layout/fragment_main">
 
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/ListFragment"
-        android:name="com.example.duckietownandroid.DeviceListFragment"
+        android:name="com.etu.duckietownandroid.DeviceListFragment"
         android:label="@string/list_fragment_label"
         tools:layout="@layout/fragment_list" >
         <action
@@ -38,12 +38,12 @@
     </fragment>
     <fragment
         android:id="@+id/MapFragment"
-        android:name="com.example.duckietownandroid.MapFragment"
+        android:name="com.etu.duckietownandroid.MapFragment"
         android:label="@string/map_fragment_label"
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/AutobotInfoFragment"
-        android:name="com.example.duckietownandroid.AutobotInfoFragment"
+        android:name="com.etu.duckietownandroid.AutobotInfoFragment"
         android:label="@string/autobot_info_title"
         tools:layout="@layout/fragment_autobot_info" >
         <action
@@ -55,22 +55,22 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentBotControl"
-        android:name="com.example.duckietownandroid.BotControlFragment"
+        android:name="com.etu.duckietownandroid.BotControlFragment"
         android:label="fragment_bot_control"
         tools:layout="@layout/fragment_bot_control" />
     <fragment
         android:id="@+id/imageStreamFragment"
-        android:name="com.example.duckietownandroid.ImageStreamFragment"
+        android:name="com.etu.duckietownandroid.ImageStreamFragment"
         android:label="fragment_image_stream"
         tools:layout="@layout/fragment_image_stream" />
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="com.example.duckietownandroid.CameraFragment"
+        android:name="com.etu.duckietownandroid.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" />
     <fragment
         android:id="@+id/arUcoFragment"
-        android:name="com.example.duckietownandroid.ArUcoFragment"
+        android:name="com.etu.duckietownandroid.ArUcoFragment"
         android:label="fragment_ar_uco"
         tools:layout="@layout/fragment_ar_uco" />
 </navigation>

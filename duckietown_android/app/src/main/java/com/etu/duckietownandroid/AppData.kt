@@ -1,4 +1,4 @@
-package com.example.duckietownandroid
+package com.etu.duckietownandroid
 
 object AppData {
     val autobots = MutableList(13){index ->

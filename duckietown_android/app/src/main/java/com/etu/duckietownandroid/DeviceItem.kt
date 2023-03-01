@@ -1,4 +1,4 @@
-package com.example.duckietownandroid
+package com.etu.duckietownandroid
 
 data class DeviceItem(var number: Int,
                       var prefix: String,

@@ -1,4 +1,4 @@
-package com.example.duckietownandroid
+package com.etu.duckietownandroid
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
-import com.example.duckietownandroid.databinding.FragmentArUcoBinding
+import com.etu.duckietownandroid.databinding.FragmentArUcoBinding
 import com.google.common.util.concurrent.ListenableFuture
 
 
