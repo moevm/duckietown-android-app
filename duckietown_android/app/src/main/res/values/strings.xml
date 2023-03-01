@@ -54,4 +54,8 @@
     <!-- Bot control -->
     <string name="bot_info_title">Bot information</string>
     <string name="bot_speed_title">Current speed</string>
+
+    <!-- Camera -->
+    <string name="previous_button">Previous</string>
+    <string name="next_button">Next</string>
 </resources>
