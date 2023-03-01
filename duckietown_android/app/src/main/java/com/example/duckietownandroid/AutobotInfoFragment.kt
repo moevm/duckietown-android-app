@@ -63,7 +63,7 @@ class AutobotInfoFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("number", autobot.number+1)
+        outState.putInt("number", autobot.number-1)
     }
 
     override fun onDestroyView() {
