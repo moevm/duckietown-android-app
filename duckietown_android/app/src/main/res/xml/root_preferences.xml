@@ -1,0 +1,20 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:key="web"
+        app:title="@string/net_title" />
+    <EditTextPreference
+        android:defaultValue="Default value"
+        android:key="external_url"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/external_url_title" />
+    <EditTextPreference
+        android:defaultValue="Default value"
+        android:key="bot_url"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/bot_url_title" />
+
+</PreferenceScreen>

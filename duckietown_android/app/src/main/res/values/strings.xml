@@ -2,11 +2,65 @@
     <string name="app_name">Duckietown Android</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">Duckietown First Fragment</string>
-    <string name="second_fragment_label">Duckietown Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="main_fragment_label">Duckietown Autolab</string>
+    <string name="list_fragment_label">Device list</string>
+    <string name="map_fragment_label">Map</string>
 
-    <string name="hello_first_fragment">Duckietown Android App</string>
-    <string name="hello_second_fragment">Duckietown Android App Settings</string>
+    <string name="device_list_status_placeholder">Online: %d/%d</string>
+    <string name="device_list_status">Online: %d/%d</string>
+    <string name="device_list_item_placeholder">Device Item</string>
+    <string name="device_item_status_icon">Device status</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Devices list titles -->
+    <string name="autobots_title">Autobots</string>
+    <string name="watchtowers_title">Watchtowers</string>
+    <string name="cameras_title">Cameras</string>
+    <string name="autobot_info_title">Autobot %d</string>
+    <string name="watchtower_info_title">Watchtower %d</string>
+    <string name="camera_info_title">Camera %d</string>
+
+    <!-- Sync Preferences -->
+    <string name="net_title">Local / Web</string>
+    <string name="external_url_title">External url</string>
+    <string name="bot_url_title">Bot url</string>
+    <string name="menu_about_title">About</string>
+    <string name="menu_about_text">This application created for Duckietown Autolab in ETU. Authors are Selezneva Anastasia, Tinyakov Sergey and Tsaplin Ilya</string>
+    <string name="menu_about_positive_button_text">OK</string>
+
+    <string name="main_autobots_button">Autobots</string>
+    <string name="main_watchtowers_button">Watchtowers</string>
+    <string name="main_cameras_button">Cameras</string>
+    <string name="main_map_button">Map</string>
+    <string name="main_aruco_button">Scan ArUco</string>
+    <string name="map_send_button">Send</string>
+
+    <string name="filter_option_only_online">Only online</string>
+    <string name="filter_option_max_battery">Max battery in %</string>
+    <string name="filter_button_apply">Apply</string>
+    <string name="filter_option_min_device_temperature">Min device temperature, °C</string>
+    <string name="filter_option_max_device_temperature">Max device temperature, °C</string>
+    <string name="filter_option_min_memory_used">Min memory used by device, Gb</string>
+    <!-- Bot info -->
+    <string name="bot_status_title">Bot status</string>
+    <string name="battery_title">Battery</string>
+    <string name="temp_title">Temperature</string>
+    <string name="memory_title">Memory(used)</string>
+    <string name="joystick_title">Joystick</string>
+    <string name="demo_title">Start Demo</string>
+    <string name="bot_video_title">Video</string>
+    <string name="set_time_title">Set time</string>
+
+    <!-- Bot control -->
+    <string name="bot_info_title">Bot information</string>
+    <string name="bot_speed_title">Current speed</string>
+
+    <!-- Camera -->
+    <string name="camera_view_previous_button">Previous</string>
+    <string name="camera_view_next_button">Next</string>
+
+    <!-- ArUco -->
+    <string name="aruco_title">Scan ArUco</string>
+    <string name="menu_item_filter">Filter</string>
+    <string name="menu_item_settings">Settings</string>
 </resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/filter_padding"
+    android:paddingRight="@dimen/filter_padding"
+    android:paddingBottom="@dimen/filter_padding">
+
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/filter_only_online"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/filter_hints_size"
+        android:text="@string/filter_option_only_online"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <TextView
+        android:id="@+id/filter_max_battery_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_option_max_battery"
+        android:labelFor="@+id/filter_max_battery"
+        android:textSize="@dimen/filter_hints_size"/>
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/filter_max_battery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/filter_label_for_min_temperature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_option_min_device_temperature"
+        android:labelFor="@+id/filter_min_temperature"
+        android:textSize="@dimen/filter_hints_size"/>
+
+    <EditText
+        android:id="@+id/filter_min_temperature"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_editable_height"
+        android:ems="10"
+        android:inputType="number"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/filter_label_for_max_temperature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_option_max_device_temperature"
+        android:labelFor="@+id/filter_max_temperature"
+        android:textSize="@dimen/filter_hints_size"/>
+
+    <EditText
+        android:id="@+id/filter_max_temperature"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_editable_height"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/filter_label_for_min_memory_used"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_option_min_memory_used"
+        android:labelFor="@+id/filter_min_memory_used"
+        android:textSize="@dimen/filter_hints_size"/>
+
+    <EditText
+        android:id="@+id/filter_min_memory_used"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_editable_height"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number|numberDecimal|numberSigned"/>
+
+    <Button
+        android:id="@+id/filter_button_apply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_button_apply" />
+</LinearLayout>
