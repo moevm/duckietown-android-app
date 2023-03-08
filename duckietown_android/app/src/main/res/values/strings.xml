@@ -54,6 +54,10 @@
     <!-- Bot control -->
     <string name="bot_info_title">Bot information</string>
     <string name="bot_speed_title">Current speed</string>
+    <string name="joystick_forward_button_description">FORWARD</string>
+    <string name="joystick_backward_button_description">BACKWARD</string>
+    <string name="joystick_left_button_description">LEFT</string>
+    <string name="joystick_right_button_description">RIGHT</string>
 
     <!-- Camera -->
     <string name="camera_view_previous_button">Previous</string>
