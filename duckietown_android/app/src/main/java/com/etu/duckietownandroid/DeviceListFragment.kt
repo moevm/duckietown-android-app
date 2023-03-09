@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.etu.duckietownandroid.databinding.FragmentListBinding
+import com.google.android.material.chip.Chip
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -21,20 +22,44 @@ import com.etu.duckietownandroid.databinding.FragmentListBinding
 class DeviceListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
-    private var data = MutableList<DeviceItem>(0){ DeviceItem(0, "name") }
-    private var itemListener = {position: Int -> adapterOnItemClick(position)}
+    private var data = MutableList<DeviceItem>(0) { DeviceItem(0, "name") }
+    private var itemListener = { position: Int -> adapterOnItemClick(position) }
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
+
+    private val tagFilters = mapOf(
+        "Online" to {
+            //TODO call filter
+            Log.d("FILTER", "Online filter called")
+        },
+        "Low battery" to {
+            //TODO call filter
+            Log.d("FILTER", "Low battery filter called")
+        },
+        "Overheat" to {
+            //TODO call filter
+            Log.d("FILTER", "Overheat filter called")
+        },
+        "Low memory" to {
+            //TODO call filter
+            Log.d("FILTER", "Low memory filter called")
+        }
+    )
+    private val autobotFilters = listOf("Online", "Low battery", "Overheat", "Low memory")
+    private val watchtowerFilters = listOf("Online")
+    private val cameraFilters = listOf("Online")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
+
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         val n = arguments?.getInt("number") ?: -1
@@ -51,30 +76,49 @@ class DeviceListFragment : Fragment() {
         setCurrentDevices(typeName)
         binding.deviceListHeader.text = getString(
             R.string.device_list_status,
-            data.count(){item -> item.is_online},
-            data.size)
+            data.count() { item -> item.is_online },
+            data.size
+        )
         val adapter = DeviceAdapter(data, itemListener)
         val recycleView = binding.deviceList
-        recycleView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        recycleView.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         recycleView.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.VERTICAL))
         recycleView.adapter = adapter
 
+        val filterList: List<String> =
+            when (typeName) {
+                "autobots" -> autobotFilters
+                "watchtowers" -> watchtowerFilters
+                "cameras" -> cameraFilters
+                else -> listOf()
+            }
+
+        filterList.forEach { name ->
+            val chip = Chip(context)
+            chip.text = name
+            chip.setOnClickListener {
+                tagFilters[name]?.let { it1 -> it1() }
+            }
+            binding.filterGroup.addView(chip)
+        }
+
     }
 
-    private fun setCurrentDevices(type_name: String){
-        data = when(type_name){
+    private fun setCurrentDevices(type_name: String) {
+        data = when (type_name) {
             "autobots" -> AppData.autobots
             "watchtowers" -> AppData.watchtowers
             "cameras" -> AppData.cameras
             else -> data
         }
-        itemListener = when(type_name){
-            "autobots" -> {position: Int -> adapterOnAutobotItemClick(position)}
-            "watchtowers" -> {position: Int -> adapterOnWatchtowerItemClick(position)}
-            "cameras" -> {position: Int -> adapterOnCameraItemClick(position)}
+        itemListener = when (type_name) {
+            "autobots" -> { position: Int -> adapterOnAutobotItemClick(position) }
+            "watchtowers" -> { position: Int -> adapterOnWatchtowerItemClick(position) }
+            "cameras" -> { position: Int -> adapterOnCameraItemClick(position) }
             else -> itemListener
         }
-        val titleName = when(type_name){
+        val titleName = when (type_name) {
             "autobots" -> getString(R.string.autobots_title)
             "watchtowers" -> getString(R.string.watchtowers_title)
             "cameras" -> getString(R.string.cameras_title)
@@ -95,12 +139,12 @@ class DeviceListFragment : Fragment() {
         }
     }
 
-    private fun adapterOnItemClick(position: Int){
+    private fun adapterOnItemClick(position: Int) {
         val item = data[position]
         Toast.makeText(activity, item.name, Toast.LENGTH_SHORT).show()
     }
 
-    private fun adapterOnAutobotItemClick(position: Int){
+    private fun adapterOnAutobotItemClick(position: Int) {
         val bundle = bundleOf("number" to position)
         safeNavigation(findNavController(), R.id.action_ListFragment_to_AutobotInfoFragment, bundle)
     }

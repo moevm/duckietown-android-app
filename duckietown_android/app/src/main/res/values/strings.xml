@@ -41,6 +41,7 @@
     <string name="filter_option_min_device_temperature">Min device temperature, °C</string>
     <string name="filter_option_max_device_temperature">Max device temperature, °C</string>
     <string name="filter_option_min_memory_used">Min memory used by device, Gb</string>
+
     <!-- Bot info -->
     <string name="bot_status_title">Bot status</string>
     <string name="battery_title">Battery</string>
