@@ -15,10 +15,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.etu.duckietownandroid.databinding.FragmentListBinding
 import com.google.android.material.chip.Chip
+import kotlinx.coroutines.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
+private const val updateInterval = 1000L
+
 class DeviceListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
@@ -51,6 +54,7 @@ class DeviceListFragment : Fragment() {
     private val autobotFilters = listOf("Online", "Low battery", "Overheat", "Low memory")
     private val watchtowerFilters = listOf("Online")
     private val cameraFilters = listOf("Online")
+    private var updateJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,17 +78,19 @@ class DeviceListFragment : Fragment() {
 
         val typeName = arguments?.getString("list_type") ?: "unknown"
         setCurrentDevices(typeName)
-        binding.deviceListHeader.text = getString(
-            R.string.device_list_status,
-            data.count() { item -> item.is_online },
-            data.size
+
+        binding.deviceList.addItemDecoration(
+            DividerItemDecoration(
+                activity,
+                LinearLayoutManager.VERTICAL
+            )
         )
-        val adapter = DeviceAdapter(data, itemListener)
-        val recycleView = binding.deviceList
-        recycleView.layoutManager =
+        binding.deviceList.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        recycleView.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.VERTICAL))
-        recycleView.adapter = adapter
+        val adapter = DeviceAdapter(data, itemListener)
+        binding.deviceList.adapter = adapter
+
+        updateJob = updateDevices(typeName, updateInterval)
 
         val filterList: List<String> =
             when (typeName) {
@@ -102,16 +108,33 @@ class DeviceListFragment : Fragment() {
             }
             binding.filterGroup.addView(chip)
         }
+    }
 
+    private fun updateDevices(type_name: String, delayTime: Long): Job {
+        return CoroutineScope(Dispatchers.Default).launch {
+            while (isActive) {
+
+                // Fetch devices
+                val newData = fetchDevices(type_name)
+                data.clear()
+                data.addAll(newData)
+
+                // Update UI
+                withContext(Dispatchers.Main) {
+                    binding.deviceListHeader.text = getString(
+                        R.string.device_list_status,
+                        data.count() { item -> item.is_online },
+                        data.size
+                    )
+                    binding.deviceList.adapter?.notifyItemRangeChanged(0, data.size)
+                }
+
+                delay(delayTime)
+            }
+        }
     }
 
     private fun setCurrentDevices(type_name: String) {
-        data = when (type_name) {
-            "autobots" -> AppData.autobots
-            "watchtowers" -> AppData.watchtowers
-            "cameras" -> AppData.cameras
-            else -> data
-        }
         itemListener = when (type_name) {
             "autobots" -> { position: Int -> adapterOnAutobotItemClick(position) }
             "watchtowers" -> { position: Int -> adapterOnWatchtowerItemClick(position) }
@@ -161,6 +184,7 @@ class DeviceListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        updateJob?.cancel()
         _binding = null
     }
 }
