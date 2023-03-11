@@ -19,15 +19,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
+        <com.etu.duckietownandroid.MapImageView
+            android:id="@+id/map_image"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="11"
-            android:src="@drawable/map_image" />
+            android:src="@drawable/map_image"
+            android:scaleType="matrix"
+            app:pointSize="@dimen/map_point_size"
+            app:pointBorder="@dimen/map_point_border_size"
+            app:firstPointFillColor="@color/yellow"
+            app:pointStrokeColor="@color/gray_400"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/map_clear_points"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@string/map_button_clear_point" />
+        <Button
+            android:id="@+id/map_send_action"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

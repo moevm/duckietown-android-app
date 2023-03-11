@@ -63,4 +63,5 @@
     <string name="aruco_title">Scan ArUco</string>
     <string name="menu_item_filter">Filter</string>
     <string name="menu_item_settings">Settings</string>
+    <string name="map_button_clear_point">Clear points</string>
 </resources>
