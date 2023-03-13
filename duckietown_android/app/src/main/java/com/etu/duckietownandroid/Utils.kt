@@ -15,7 +15,7 @@ fun safeNavigation(nav: NavController, @IdRes id: Int, args: Bundle? = null) {
 private val client = OkHttpClient()
 private const val NUMBER_OF_AUTOBOTS = 13
 private const val NUMBER_OF_WATCHTOWERS = 27
-private const val NUMBER_OF_CAMERAS = 7
+private const val NUMBER_OF_CAMERAS = 6
 
 fun fetchDevices(deviceType: String): MutableList<DeviceItem> {
     val deviceList = mutableListOf<DeviceItem>()
@@ -50,6 +50,20 @@ fun fetchDevices(deviceType: String): MutableList<DeviceItem> {
     return deviceList
 }
 
+fun sendRequest(url: String): Boolean? {
+    val request = Request.Builder()
+        .url(url)
+        .build()
+
+    try {
+        client.newCall(request).execute().use { response ->
+            return response.isSuccessful
+        }
+    } catch (err: IOException) {
+        return null
+    }
+}
+
 fun fetchAutobot(index: Int): DeviceItem? {
     val request = Request.Builder()
         .url("http://autolab.moevm.info/dbp/autobot${String.format("%02d", index)}/health")
@@ -81,23 +95,31 @@ fun fetchAutobot(index: Int): DeviceItem? {
     }
 }
 
-fun sendRequest(url: String): Boolean? {
-    val request = Request.Builder()
-        .url(url)
-        .build()
-
-    try {
-        client.newCall(request).execute().use { response ->
-            return response.isSuccessful
-        }
-    } catch (err: IOException) {
-        return null
-    }
-}
-
 fun fetchWatchtower(index: Int): DeviceItem? {
-    // TODO: add request for watchtower
-    return AppData.watchtowers[index-1]
+    val watchtowerURL = "http://autolab.moevm.info/dbp/watchtower${String.format("%02d", index)}/health"
+    return when (sendRequest(watchtowerURL)) {
+        true -> {
+            DeviceItem(
+                index,
+                "Watchtower",
+                true,
+                "Online",
+                mutableMapOf()
+            )
+        }
+        false -> {
+            DeviceItem(
+                index,
+                "Watchtower",
+                false,
+                "Offline",
+                mutableMapOf()
+            )
+        }
+        else -> {
+            null
+        }
+    }
 }
 
 
