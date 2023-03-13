@@ -126,7 +126,7 @@ class DeviceListFragment : Fragment() {
                         data.count() { item -> item.is_online },
                         data.size
                     )
-                    binding.deviceList.adapter?.notifyItemRangeChanged(0, data.size)
+                    binding.deviceList.adapter?.notifyDataSetChanged()
                 }
 
                 delay(delayTime)

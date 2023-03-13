@@ -13,20 +13,18 @@ import androidx.navigation.fragment.findNavController
 import com.etu.duckietownandroid.databinding.FragmentAutobotInfoBinding
 import kotlinx.coroutines.*
 
+private const val updateInterval = 1000L
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AutobotInfoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AutobotInfoFragment : Fragment() {
     private var _binding: FragmentAutobotInfoBinding? = null
     private val binding get() = _binding!!
     private var autobot = DeviceItem(0, "Autobot")
+    private var number = 0
+    private var updateJob: Job? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            autobot = AppData.autobots[it.getInt("number")]
+            number = it.getInt("number")
         }
     }
 
@@ -43,7 +41,7 @@ class AutobotInfoFragment : Fragment() {
 
         // Navigate to bot control
         binding.joystickButton.setOnClickListener {
-            val bundle = bundleOf("number" to autobot.number - 1)
+            val bundle = bundleOf("number" to number)
             safeNavigation(
                 findNavController(),
                 R.id.action_AutobotInfoFragment_to_fragmentBotControl,
@@ -52,7 +50,7 @@ class AutobotInfoFragment : Fragment() {
         }
 
         binding.botVideoButton.setOnClickListener {
-            val bundle = bundleOf("number" to autobot.number - 1, "deviceType" to "autobot")
+            val bundle = bundleOf("number" to number, "deviceType" to "autobot")
             safeNavigation(
                 findNavController(),
                 R.id.action_AutobotInfoFragment_to_imageStreamFragment,
@@ -64,7 +62,7 @@ class AutobotInfoFragment : Fragment() {
             val url = "http://autolab.moevm.info/SOMETHING/autobot${
                 String.format(
                     "%02d",
-                    autobot.number
+                    number + 1
                 )
             }"
             startDemo(url)
@@ -73,19 +71,50 @@ class AutobotInfoFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        updateJob = updateAutobot(number + 1, updateInterval)
         (activity as AppCompatActivity?)?.supportActionBar?.title = getString(
             R.string.autobot_info_title,
-            autobot.number
+            number + 1
         )
-        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = when (autobot.is_online) {
-            true -> "Online"
-            else -> "Offline"
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("number", autobot.number - 1)
+        outState.putInt("number", number)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        updateJob?.cancel()
+        _binding = null
+    }
+
+    private fun updateAutobot(number: Int, delayTime: Long): Job {
+        return CoroutineScope(Dispatchers.Default).launch {
+            while (isActive) {
+                // Fetch device
+                val newAutobot = fetchAutobot(number)
+
+                // Update UI
+                withContext(Dispatchers.Main) {
+                    if (newAutobot != null) {
+                        // Update bot info
+                        autobot = newAutobot
+
+                        (activity as AppCompatActivity?)?.supportActionBar?.subtitle =
+                            when (autobot.is_online) {
+                                true -> "Online"
+                                else -> "Offline"
+                            }
+                    } else {
+                        // No internet connection
+                        (activity as AppCompatActivity?)?.supportActionBar?.subtitle =
+                            "No connection"
+                    }
+                }
+                delay(delayTime)
+            }
+        }
     }
 
     private fun startDemo(url: String) {
@@ -96,7 +125,11 @@ class AutobotInfoFragment : Fragment() {
                     true -> Toast.makeText(activity, "Demo started!", Toast.LENGTH_SHORT).show()
                     false -> Toast.makeText(activity, "Demo NOT started!", Toast.LENGTH_SHORT)
                         .show()
-                    else -> Toast.makeText(activity, "No internet connection!", Toast.LENGTH_SHORT)
+                    else -> Toast.makeText(
+                        activity,
+                        "No internet connection!",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
             }
