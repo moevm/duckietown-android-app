@@ -67,6 +67,9 @@ class CameraFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.leftButton.setOnClickListener {
+            binding.leftButton.isEnabled = false
+            binding.rightButton.isEnabled = false
+
             if((camera.number - 1) == 0) {
                 camera = AppData.cameras[AppData.cameras.size - 1]
             } else {
@@ -85,6 +88,9 @@ class CameraFragment : Fragment() {
         }
 
         binding.rightButton.setOnClickListener {
+            binding.leftButton.isEnabled = false
+            binding.rightButton.isEnabled = false
+
             if(camera.number == AppData.cameras.size) {
                 camera = AppData.cameras[0]
             } else {
@@ -100,6 +106,7 @@ class CameraFragment : Fragment() {
                 true -> "Online"
                 else -> "Offline"
             }
+
         }
     }
 
@@ -108,13 +115,17 @@ class CameraFragment : Fragment() {
         mjpgStream?.open("http://autolab.moevm.info/camera_${camera.number}/live.mjpg", TIMEOUT)
             ?.subscribe(
                 { inputStream: MjpegInputStream ->
+                    Log.d("Camera", "opens")
                     binding.mjpegViewDefault.setSource(inputStream)
                     binding.mjpegViewDefault.setDisplayMode(DisplayMode.BEST_FIT)
                     binding.mjpegViewDefault.showFps(true)
+                    binding.leftButton.isEnabled = true
+                    binding.rightButton.isEnabled = true
                 }
             ) { throwable: Throwable ->
                 Log.e(javaClass.simpleName, "mjpeg error", throwable)
             }
+        Log.d("Camera", "loadIpCam finished")
 
     }
 
@@ -127,6 +138,7 @@ class CameraFragment : Fragment() {
         super.onPause()
         GlobalScope.launch(Dispatchers.IO) {
             binding.mjpegViewDefault.stopPlayback()
+
         }
 
     }
