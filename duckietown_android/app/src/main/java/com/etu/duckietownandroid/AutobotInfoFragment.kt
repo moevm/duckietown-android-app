@@ -60,6 +60,7 @@ class AutobotInfoFragment : Fragment() {
 
         binding.demoButton.setOnClickListener {
             val url = "http://autolab.moevm.info/SOMETHING/autobot${String.format("%02d", autobot.number)}"
+            binding.demoButton.isEnabled = false
             startDemo(url)
         }
     }
@@ -90,6 +91,7 @@ class AutobotInfoFragment : Fragment() {
                     false -> Toast.makeText(activity, "Demo NOT started!", Toast.LENGTH_SHORT).show()
                     else -> Toast.makeText(activity, "No internet connection!", Toast.LENGTH_SHORT).show()
                 }
+                binding.demoButton.isEnabled = true
             }
         }
     }
