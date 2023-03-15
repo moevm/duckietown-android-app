@@ -58,4 +58,7 @@ dependencies {
 
     //OkHTTP
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+
+    // for mjpeg
+    implementation 'com.github.niqdev:ipcam-view:2.3.4'
 }
