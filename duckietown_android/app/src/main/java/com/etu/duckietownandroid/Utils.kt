@@ -3,10 +3,43 @@ package com.etu.duckietownandroid
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 
+
+data class BatteryInfo(
+    val percentage: Float
+)
+
+data class CPUInfo(
+    val percentage: Float
+)
+
+data class DiskInfo(
+    val used: Long,
+    val total: Long
+)
+
+data class SwapInfo(
+    val used: Long,
+    val total: Long
+)
+
+data class MemoryInfo(
+    val used: Long,
+    val total: Long
+)
+
+data class AutobotInfo(
+    val temperature: Float,
+    val battery: BatteryInfo,
+    val cpu: CPUInfo,
+    val disk: DiskInfo,
+    val swap: SwapInfo,
+    val memory: MemoryInfo
+)
 
 fun safeNavigation(nav: NavController, @IdRes id: Int, args: Bundle? = null) {
     nav.currentDestination?.getAction(id)?.run { nav.navigate(id, args) }
@@ -22,27 +55,17 @@ fun fetchDevices(deviceType: String): MutableList<DeviceItem> {
 
     when (deviceType) {
         "autobots" -> {
-            for (i in 1 .. NUMBER_OF_AUTOBOTS) {
+            for (i in 1..NUMBER_OF_AUTOBOTS) {
                 fetchAutobot(i)?.let { deviceList.add(it) }
             }
         }
         "watchtowers" -> {
-            // TODO: remove debug for demonstrating update
-            for (i in 0 until AppData.watchtowers.size) {
-                AppData.watchtowers[i].is_online = !AppData.watchtowers[i].is_online
-                if (AppData.watchtowers[i].shortStatus == "Offline") {
-                    AppData.watchtowers[i].shortStatus = "Online"
-                } else {
-                    AppData.watchtowers[i].shortStatus = "Offline"
-                }
-            }
-
-            for (i in 1 .. NUMBER_OF_WATCHTOWERS) {
+            for (i in 1..NUMBER_OF_WATCHTOWERS) {
                 fetchWatchtower(i)?.let { deviceList.add(it) }
             }
         }
         "cameras" -> {
-            for (i in 1 .. NUMBER_OF_CAMERAS) {
+            for (i in 1..NUMBER_OF_CAMERAS) {
                 fetchCamera(i)?.let { deviceList.add(it) }
             }
         }
@@ -81,12 +104,24 @@ fun fetchAutobot(index: Int): DeviceItem? {
                     mutableMapOf()
                 )
             } else {
+                val gson = GsonBuilder().create()
+                val data = gson.fromJson(response?.body()?.string(), AutobotInfo::class.java)
                 return DeviceItem(
                     index,
                     "Autobot",
                     true,
                     "Online",
-                    mutableMapOf()
+                    mutableMapOf(
+                        "temperature" to data.temperature.toString(),
+                        "cpu_percentage" to data.cpu.percentage.toString(),
+                        "battery_percentage" to data.battery.percentage.toString(),
+                        "memory_used" to (data.memory.used.toDouble() / (1024 * 1024 * 1024)).toString(),
+                        "memory_total" to (data.memory.total.toDouble() / (1024 * 1024 * 1024)).toString(),
+                        "swap_used" to (data.swap.used.toDouble() / (1024 * 1024 * 1024)).toString(),
+                        "swap_total" to (data.swap.total.toDouble() / (1024 * 1024 * 1024)).toString(),
+                        "disk_used" to (data.disk.used.toDouble() / (1024 * 1024 * 1024)).toString(),
+                        "disk_total" to (data.disk.total.toDouble() / (1024 * 1024 * 1024)).toString(),
+                    )
                 )
             }
         }
@@ -96,7 +131,8 @@ fun fetchAutobot(index: Int): DeviceItem? {
 }
 
 fun fetchWatchtower(index: Int): DeviceItem? {
-    val watchtowerURL = "http://autolab.moevm.info/dbp/watchtower${String.format("%02d", index)}/health"
+    val watchtowerURL =
+        "http://autolab.moevm.info/dbp/watchtower${String.format("%02d", index)}/health"
     return when (sendRequest(watchtowerURL)) {
         true -> {
             DeviceItem(
