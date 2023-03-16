@@ -11,6 +11,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.etu.duckietownandroid.databinding.DialogInfoErrorFragmentBinding
 import com.etu.duckietownandroid.databinding.FragmentAutobotInfoBinding
 import kotlinx.coroutines.*
 
@@ -113,6 +114,15 @@ class AutobotInfoFragment : Fragment() {
                                 true -> "Online"
                                 else -> "Offline"
                             }
+                        if(!autobot.is_online){
+                            DialogInfoErrorFragment(
+                                getString(R.string.autobot_offline_message, number, number),
+                                getString(R.string.dialog_title_error),
+                                R.drawable.sad_duck_animation).show(
+                                activity?.supportFragmentManager!!,
+                                "info_error")
+                            findNavController().popBackStack()
+                        }
 
                         currentFullStatus.putAll(autobot.fullStatus)
                         binding.botInfoTable.adapter?.apply { notifyItemRangeChanged(0, itemCount) }
@@ -135,12 +145,12 @@ class AutobotInfoFragment : Fragment() {
                     true -> Toast.makeText(activity, "Demo started!", Toast.LENGTH_SHORT).show()
                     false -> Toast.makeText(activity, "Demo NOT started!", Toast.LENGTH_SHORT)
                         .show()
-                    else -> Toast.makeText(
-                        activity,
-                        "No internet connection!",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    else -> DialogInfoErrorFragment(
+                                getString(R.string.autobot_start_demo_connection_failed),
+                                getString(R.string.dialog_title_error),
+                                R.drawable.sad_duck_animation).show(
+                        activity?.supportFragmentManager!!,
+                        "info_error")
                 }
                 binding.demoButton.isEnabled = true
             }

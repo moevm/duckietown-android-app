@@ -62,4 +62,5 @@ dependencies {
 
     // for mjpeg
     implementation 'com.github.perthcpe23:android-mjpeg-view:v1.0.9'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'
 }

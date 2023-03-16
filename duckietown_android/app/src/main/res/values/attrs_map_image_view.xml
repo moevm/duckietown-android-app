@@ -1,0 +1,9 @@
+<resources>
+    <declare-styleable name="MapImageView">
+        <attr name="pointSize" format="dimension" />
+        <attr name="pointBorder" format="dimension" />
+        <attr name="firstPointFillColor" format="color" />
+        <attr name="secondPointFillColor" format="color" />
+        <attr name="pointStrokeColor" format="color" />
+    </declare-styleable>
+</resources>
