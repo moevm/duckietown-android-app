@@ -8,37 +8,13 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 
-
-data class BatteryInfo(
-    val percentage: Float
-)
-
-data class CPUInfo(
-    val percentage: Float
-)
-
-data class DiskInfo(
-    val used: Long,
-    val total: Long
-)
-
-data class SwapInfo(
-    val used: Long,
-    val total: Long
-)
-
-data class MemoryInfo(
-    val used: Long,
-    val total: Long
-)
-
 data class AutobotInfo(
     val temperature: Float,
-    val battery: BatteryInfo,
-    val cpu: CPUInfo,
-    val disk: DiskInfo,
-    val swap: SwapInfo,
-    val memory: MemoryInfo
+    val battery: DeviceStatusBatteryInfo,
+    val cpu: DeviceStatusCPUInfo,
+    val disk: DeviceStatusDiskInfo,
+    val swap: DeviceStatusSwapInfo,
+    val memory: DeviceStatusMemoryInfo
 )
 
 fun safeNavigation(nav: NavController, @IdRes id: Int, args: Bundle? = null) {
@@ -112,15 +88,12 @@ fun fetchAutobot(index: Int): DeviceItem? {
                     true,
                     "Online",
                     mutableMapOf(
-                        "temperature" to data.temperature.toString(),
-                        "cpu_percentage" to data.cpu.percentage.toString(),
-                        "battery_percentage" to data.battery.percentage.toString(),
-                        "memory_used" to (data.memory.used.toDouble() / (1024 * 1024 * 1024)).toString(),
-                        "memory_total" to (data.memory.total.toDouble() / (1024 * 1024 * 1024)).toString(),
-                        "swap_used" to (data.swap.used.toDouble() / (1024 * 1024 * 1024)).toString(),
-                        "swap_total" to (data.swap.total.toDouble() / (1024 * 1024 * 1024)).toString(),
-                        "disk_used" to (data.disk.used.toDouble() / (1024 * 1024 * 1024)).toString(),
-                        "disk_total" to (data.disk.total.toDouble() / (1024 * 1024 * 1024)).toString(),
+                        StatusKeys.TEMPERATURE to DeviceStatusTemperature(data.temperature),
+                        StatusKeys.CPU to data.cpu,
+                        StatusKeys.BATTERY to data.battery,
+                        StatusKeys.MEMORY to data.memory,
+                        StatusKeys.SWAP to data.swap,
+                        StatusKeys.DISK to data.disk
                     )
                 )
             }

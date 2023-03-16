@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.etu.duckietownandroid.databinding.FragmentAutobotInfoBinding
 import kotlinx.coroutines.*
 
@@ -21,6 +22,7 @@ class AutobotInfoFragment : Fragment() {
     private var autobot = DeviceItem(0, "Autobot")
     private var number = 0
     private var updateJob: Job? = null
+    private var currentFullStatus = mutableMapOf<StatusKeys, DeviceStatus>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -38,6 +40,10 @@ class AutobotInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.botInfoTable.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        binding.botInfoTable.adapter = AutobotStatusItemAdapter(currentFullStatus)
 
         // Navigate to bot control
         binding.joystickButton.setOnClickListener {
@@ -106,6 +112,9 @@ class AutobotInfoFragment : Fragment() {
                                 true -> "Online"
                                 else -> "Offline"
                             }
+
+                        currentFullStatus.putAll(autobot.fullStatus)
+                        binding.botInfoTable.adapter?.apply { notifyItemRangeChanged(0, itemCount) }
                     } else {
                         // No internet connection
                         (activity as AppCompatActivity?)?.supportActionBar?.subtitle =
