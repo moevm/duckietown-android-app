@@ -63,4 +63,5 @@ dependencies {
 
     // for mjpeg
     implementation 'com.github.niqdev:ipcam-view:2.3.4'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'
 }
