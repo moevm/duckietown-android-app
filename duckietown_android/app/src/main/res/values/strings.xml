@@ -51,6 +51,8 @@
     <string name="demo_title">Start Demo</string>
     <string name="bot_video_title">Video</string>
     <string name="set_time_title">Set time</string>
+    <string name="autobot_start_demo_connection_failed">Cannot connect to the autobot. Check your internet connection or try later</string>
+    <string name="autobot_offline_message">Autobot%02d is offline. Check that the autobot%02d is turned on</string>
 
     <!-- Bot control -->
     <string name="bot_info_title">Bot information</string>
@@ -70,4 +72,8 @@
     <string name="menu_item_settings">Settings</string>
     <string name="map_button_clear_point">Clear points</string>
     <string name="autobot_status_item_placeholder">Unknown info</string>
+
+    <string name="dialog_title_error">Error</string>
+    <string name="dialog_title_info">How to use</string>
+    <string name="dialog_info_error_image_description">Image for error or info</string>
 </resources>
