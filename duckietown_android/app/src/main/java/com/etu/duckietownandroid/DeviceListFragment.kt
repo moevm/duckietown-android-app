@@ -1,5 +1,6 @@
 package com.etu.duckietownandroid
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -22,7 +23,7 @@ import kotlinx.coroutines.*
  */
 private const val updateInterval = 1000L
 
-class DeviceListFragment : Fragment() {
+class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list) {
 
     private var _binding: FragmentListBinding? = null
     private var data = MutableList<DeviceItem>(0) { DeviceItem(0, "name") }
@@ -115,7 +116,25 @@ class DeviceListFragment : Fragment() {
             while (isActive) {
 
                 // Fetch devices
-                val newData = fetchDevices(type_name)
+                val newData = let{
+                    try{
+                        context?.let { LabRequests(it).fetchDevices(type_name) }
+                    } catch (err: IllegalArgumentException){
+                        // User set invalid url
+                        DialogInfoErrorFragment(
+                            getString(R.string.dialog_info_error_bad_url),
+                            getString(R.string.dialog_title_error),
+                            R.drawable.sad_duck_animation).show(
+                            activity?.supportFragmentManager!!,
+                            "info_error")
+                        cancel()
+                        null
+                    }
+                }
+                if (newData == null) {
+                    delay(delayTime)
+                    continue
+                }
                 data.clear()
                 data.addAll(newData)
 
@@ -169,17 +188,17 @@ class DeviceListFragment : Fragment() {
 
     private fun adapterOnAutobotItemClick(position: Int) {
         val bundle = bundleOf("number" to position)
-        safeNavigation(findNavController(), R.id.action_ListFragment_to_AutobotInfoFragment, bundle)
+        safeNavigation(R.id.action_ListFragment_to_AutobotInfoFragment, bundle)
     }
 
     private fun adapterOnWatchtowerItemClick(position: Int) {
         val bundle = bundleOf("number" to position, "deviceType" to "watchtower")
-        safeNavigation(findNavController(), R.id.action_ListFragment_to_imageStreamFragment, bundle)
+        safeNavigation(R.id.action_ListFragment_to_imageStreamFragment, bundle)
     }
 
     private fun adapterOnCameraItemClick(position: Int) {
         val bundle = bundleOf("number" to position)
-        safeNavigation(findNavController(), R.id.action_ListFragment_to_cameraFragment, bundle)
+        safeNavigation(R.id.action_ListFragment_to_cameraFragment, bundle)
     }
 
     override fun onDestroyView() {

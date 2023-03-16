@@ -3,6 +3,7 @@ package com.etu.duckietownandroid
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +13,7 @@ import kotlinx.coroutines.*
 
 private const val updateInterval = 1000L
 
-class BotControlFragment : Fragment() {
+class BotControlFragment : DuckieFragment(R.string.how_to_use_autobot_control) {
     private var _binding: FragmentBotControlBinding? = null
     private val binding get() = _binding!!
     private var autobot = DeviceItem(0, "Autobot")
@@ -59,7 +60,7 @@ class BotControlFragment : Fragment() {
         return CoroutineScope(Dispatchers.Default).launch {
             while (isActive) {
                 // Fetch device
-                val newAutobot = fetchAutobot(number)
+                val newAutobot = context?.let { LabRequests(it).fetchAutobot(number) }
 
                 // Update UI
                 withContext(Dispatchers.Main) {
@@ -91,4 +92,5 @@ class BotControlFragment : Fragment() {
         updateJob?.cancel()
         _binding = null
     }
+
 }

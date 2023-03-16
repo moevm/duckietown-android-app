@@ -1,8 +1,10 @@
 package com.etu.duckietownandroid
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -11,12 +13,13 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.etu.duckietownandroid.databinding.DialogInfoErrorFragmentBinding
 import com.etu.duckietownandroid.databinding.FragmentAutobotInfoBinding
 import kotlinx.coroutines.*
 
 private const val updateInterval = 1000L
 
-class AutobotInfoFragment : Fragment() {
+class AutobotInfoFragment : DuckieFragment(R.string.how_to_use_autobot_info) {
     private var _binding: FragmentAutobotInfoBinding? = null
     private val binding get() = _binding!!
     private var autobot = DeviceItem(0, "Autobot")
@@ -49,7 +52,6 @@ class AutobotInfoFragment : Fragment() {
         binding.joystickButton.setOnClickListener {
             val bundle = bundleOf("number" to number)
             safeNavigation(
-                findNavController(),
                 R.id.action_AutobotInfoFragment_to_fragmentBotControl,
                 bundle
             )
@@ -58,7 +60,6 @@ class AutobotInfoFragment : Fragment() {
         binding.botVideoButton.setOnClickListener {
             val bundle = bundleOf("number" to number, "deviceType" to "autobot")
             safeNavigation(
-                findNavController(),
                 R.id.action_AutobotInfoFragment_to_imageStreamFragment,
                 bundle
             )
@@ -100,7 +101,7 @@ class AutobotInfoFragment : Fragment() {
         return CoroutineScope(Dispatchers.Default).launch {
             while (isActive) {
                 // Fetch device
-                val newAutobot = fetchAutobot(number)
+                val newAutobot = context?.let { LabRequests(it).fetchAutobot(number) }
 
                 // Update UI
                 withContext(Dispatchers.Main) {
@@ -113,6 +114,15 @@ class AutobotInfoFragment : Fragment() {
                                 true -> "Online"
                                 else -> "Offline"
                             }
+                        if(!autobot.is_online){
+                            DialogInfoErrorFragment(
+                                getString(R.string.autobot_offline_message, number, number),
+                                getString(R.string.dialog_title_error),
+                                R.drawable.sad_duck_animation).show(
+                                activity?.supportFragmentManager!!,
+                                "info_error")
+                            findNavController().navigateUp()
+                        }
 
                         currentFullStatus.putAll(autobot.fullStatus)
                         binding.botInfoTable.adapter?.apply { notifyItemRangeChanged(0, itemCount) }
@@ -135,15 +145,16 @@ class AutobotInfoFragment : Fragment() {
                     true -> Toast.makeText(activity, "Demo started!", Toast.LENGTH_SHORT).show()
                     false -> Toast.makeText(activity, "Demo NOT started!", Toast.LENGTH_SHORT)
                         .show()
-                    else -> Toast.makeText(
-                        activity,
-                        "No internet connection!",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    else -> DialogInfoErrorFragment(
+                                getString(R.string.autobot_start_demo_connection_failed),
+                                getString(R.string.dialog_title_error),
+                                R.drawable.sad_duck_animation).show(
+                        activity?.supportFragmentManager!!,
+                        "info_error")
                 }
                 binding.demoButton.isEnabled = true
             }
         }
     }
+
 }

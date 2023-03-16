@@ -22,11 +22,21 @@
 
     <!-- Sync Preferences -->
     <string name="net_title">Local / Web</string>
+    <string name="local_url_title">Local url</string>
     <string name="external_url_title">External url</string>
     <string name="bot_url_title">Bot url</string>
+    <string name="camera_url_title">Camera url</string>
+    <string name="watchtower_url_title">Watchtower url</string>
     <string name="menu_about_title">About</string>
     <string name="menu_about_text">This application created for Duckietown Autolab in ETU. Authors are Selezneva Anastasia, Tinyakov Sergey and Tsaplin Ilya</string>
     <string name="menu_about_positive_button_text">OK</string>
+
+    <!-- Default Url Values -->
+    <string name="local_url_default_value">http://10.135.4.230</string>
+    <string name="external_url_default_value">http://autolab.moevm.info</string>
+    <string name="bot_url_default_value">/dbp/autobot00/health</string>
+    <string name="camera_url_default_value">/camera_0/live.mjpg</string>
+    <string name="watchtower_url_default_value">/dbp/watchtower00/health</string>
 
     <string name="main_autobots_button">Autobots</string>
     <string name="main_watchtowers_button">Watchtowers</string>
@@ -51,6 +61,17 @@
     <string name="demo_title">Start Demo</string>
     <string name="bot_video_title">Video</string>
     <string name="set_time_title">Set time</string>
+    <string name="autobot_start_demo_connection_failed">Cannot connect to the autobot. Check your internet connection or try later</string>
+    <string name="autobot_offline_message">Autobot%02d is offline. Check that the autobot%02d is turned on</string>
+    <string name="dialog_info_error_bad_url">Cannot recognize url. Make sure the settings are correct</string>
+    <string name="how_to_use_autobot_info">On this screen you can see status information about autobot. Also you can perform some actions</string>
+    <string name="how_to_use_autobot_control">On this screen you can control the autobot movements</string>
+    <string name="how_to_use_device_list">On this screen you can see the list of the devices. Tapping a device will open the status screen</string>
+    <string name="how_to_use_image_stream">On this screen you can see video from devices camera. Delay might be high</string>
+    <string name="how_to_use_camera">On this screen you can see video from cameras over polygon. Delay might be high</string>
+    <string name="how_to_use_map">On this screen you can see the map of Autolab polygon. You can set two points and perform some action</string>
+    <string name="how_to_use_scan_aruco">On this screen you can scan autobots qr-code to open its status screen</string>
+    <string name="dialog_info_error_long_string">Cannot connect to the autobot. Check your internet connection or try later. Just test more lines for error, because on small smartphones no space for text and image</string>
 
     <!-- Bot control -->
     <string name="bot_info_title">Bot information</string>
@@ -68,5 +89,12 @@
     <string name="aruco_title">Scan ArUco</string>
     <string name="menu_item_filter">Filter</string>
     <string name="menu_item_settings">Settings</string>
+    <string name="map_button_clear_point">Clear points</string>
     <string name="autobot_status_item_placeholder">Unknown info</string>
+
+    <string name="dialog_title_error">Error</string>
+    <string name="dialog_title_info">How to use</string>
+    <string name="dialog_info_error_image_description">Image for error or info</string>
+    <string name="settings_menu_about">About</string>
+    <string name="menu_how_to_use">How To Use</string>
 </resources>

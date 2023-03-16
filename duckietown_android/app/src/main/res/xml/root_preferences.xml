@@ -5,16 +5,35 @@
         app:key="web"
         app:title="@string/net_title" />
     <EditTextPreference
-        android:defaultValue="Default value"
+        android:defaultValue="@string/local_url_default_value"
+        android:key="local_url"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/local_url_title" />
+    <EditTextPreference
+        android:defaultValue="@string/external_url_default_value"
         android:key="external_url"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/external_url_title" />
     <EditTextPreference
-        android:defaultValue="Default value"
+        android:defaultValue="@string/bot_url_default_value"
         android:key="bot_url"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/bot_url_title" />
+    <EditTextPreference
+        android:defaultValue="@string/watchtower_url_default_value"
+        android:key="watchtower_url"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/watchtower_url_title" />
+    <EditTextPreference
+        android:defaultValue="@string/camera_url_default_value"
+        android:key="camera_url"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/camera_url_title" />
+
 
 </PreferenceScreen>
