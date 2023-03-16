@@ -60,4 +60,7 @@ dependencies {
     //OkHTTP
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.google.code.gson:gson:2.8.9'
+
+    // for mjpeg
+    implementation 'com.github.niqdev:ipcam-view:2.3.4'
 }

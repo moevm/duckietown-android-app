@@ -71,6 +71,7 @@ class AutobotInfoFragment : Fragment() {
                     number + 1
                 )
             }"
+            binding.demoButton.isEnabled = false
             startDemo(url)
         }
     }
@@ -141,6 +142,7 @@ class AutobotInfoFragment : Fragment() {
                     )
                         .show()
                 }
+                binding.demoButton.isEnabled = true
             }
         }
     }
