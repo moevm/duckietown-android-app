@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
-
 android {
     namespace 'com.etu.duckietownandroid'
     compileSdk 33
@@ -62,5 +61,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
 
     // for mjpeg
-    implementation 'com.github.niqdev:ipcam-view:2.3.4'
+    implementation 'com.github.perthcpe23:android-mjpeg-view:v1.0.9'
 }
