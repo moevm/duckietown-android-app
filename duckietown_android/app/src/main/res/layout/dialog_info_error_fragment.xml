@@ -3,21 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:paddingLeft="@dimen/filter_padding"
     android:paddingRight="@dimen/filter_padding"
     android:paddingBottom="@dimen/filter_padding">
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/dialog_info_error_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:visibility="gone"
+        android:layout_weight="20"
         android:contentDescription="@string/dialog_info_error_image_description"/>
 
     <TextView
         android:id="@+id/dialog_info_error_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/filter_hints_size"/>
 

@@ -53,6 +53,7 @@
     <string name="set_time_title">Set time</string>
     <string name="autobot_start_demo_connection_failed">Cannot connect to the autobot. Check your internet connection or try later</string>
     <string name="autobot_offline_message">Autobot%02d is offline. Check that the autobot%02d is turned on</string>
+    <string name="dialog_info_error_long_string">Cannot connect to the autobot. Check your internet connection or try later. Just test more lines for error, because on small smartphones no space for text and image</string>
 
     <!-- Bot control -->
     <string name="bot_info_title">Bot information</string>
