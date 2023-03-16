@@ -10,17 +10,7 @@ import com.etu.duckietownandroid.databinding.FragmentCameraBinding
 import com.longdo.mjpegviewer.MjpegView
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CameraFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CameraFragment : Fragment() {
+class CameraFragment : DuckieFragment(R.string.how_to_use_camera) {
 
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
@@ -32,6 +22,7 @@ class CameraFragment : Fragment() {
         arguments?.let {
             camera = AppData.cameras[it.getInt("number")]
         }
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(

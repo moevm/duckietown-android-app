@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 data class AutobotInfo(
     val temperature: Float,
@@ -19,7 +20,11 @@ data class AutobotInfo(
     val memory: DeviceStatusMemoryInfo
 )
 
-private val client = OkHttpClient()
+private val client = OkHttpClient.Builder()
+    .connectTimeout(2, TimeUnit.SECONDS)
+    .readTimeout(2, TimeUnit.SECONDS)
+    .writeTimeout(2, TimeUnit.SECONDS)
+    .build()
 private const val NUMBER_OF_AUTOBOTS = 13
 private const val NUMBER_OF_WATCHTOWERS = 27
 private const val NUMBER_OF_CAMERAS = 6
@@ -157,6 +162,7 @@ class LabRequests(private val context: Context) {
 
         val strb: StringBuilder = StringBuilder(cameraUrl)
         val lastIndex = strb.lastIndexOf("0")
+        if (lastIndex == -1) return null
         strb.replace(lastIndex, 1 + lastIndex, index.toString())
         cameraUrl = strb.toString()
 
@@ -175,6 +181,7 @@ class LabRequests(private val context: Context) {
 
         val strb: StringBuilder = StringBuilder(autobotUrl)
         val lastIndex = strb.lastIndexOf("00")
+        if (lastIndex == -1) return null
         strb.replace(lastIndex, 2 + lastIndex, String.format("%02d", index))
         autobotUrl = strb.toString()
 
@@ -193,15 +200,12 @@ class LabRequests(private val context: Context) {
 
         val strb: StringBuilder = StringBuilder(watchtowerUrl)
         val lastIndex = strb.lastIndexOf("00")
+        if (lastIndex == -1) return null
         strb.replace(lastIndex, 2 + lastIndex, String.format("%02d", index))
         watchtowerUrl = strb.toString()
 
         return labUrl + watchtowerUrl
     }
-}
-
-fun safeNavigation(nav: NavController, @IdRes id: Int, args: Bundle? = null) {
-    nav.currentDestination?.getAction(id)?.run { nav.navigate(id, args) }
 }
 
 fun sendRequest(url: String): Boolean? {

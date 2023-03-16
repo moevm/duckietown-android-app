@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.etu.duckietownandroid.databinding.FragmentMapBinding
 
-class MapFragment : Fragment() {
+class MapFragment : DuckieFragment(R.string.how_to_use_map) {
 
     private var _binding: FragmentMapBinding? = null
 

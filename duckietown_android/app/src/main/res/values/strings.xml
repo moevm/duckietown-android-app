@@ -63,6 +63,14 @@
     <string name="set_time_title">Set time</string>
     <string name="autobot_start_demo_connection_failed">Cannot connect to the autobot. Check your internet connection or try later</string>
     <string name="autobot_offline_message">Autobot%02d is offline. Check that the autobot%02d is turned on</string>
+    <string name="dialog_info_error_bad_url">Cannot recognize url. Make sure the settings are correct</string>
+    <string name="how_to_use_autobot_info">On this screen you can see status information about autobot. Also you can perform some actions</string>
+    <string name="how_to_use_autobot_control">On this screen you can control the autobot movements</string>
+    <string name="how_to_use_device_list">On this screen you can see the list of the devices. Tapping a device will open the status screen</string>
+    <string name="how_to_use_image_stream">On this screen you can see video from devices camera. Delay might be high</string>
+    <string name="how_to_use_camera">On this screen you can see video from cameras over polygon. Delay might be high</string>
+    <string name="how_to_use_map">On this screen you can see the map of Autolab polygon. You can set two points and perform some action</string>
+    <string name="how_to_use_scan_aruco">On this screen you can scan autobots qr-code to open its status screen</string>
     <string name="dialog_info_error_long_string">Cannot connect to the autobot. Check your internet connection or try later. Just test more lines for error, because on small smartphones no space for text and image</string>
 
     <!-- Bot control -->
@@ -87,4 +95,6 @@
     <string name="dialog_title_error">Error</string>
     <string name="dialog_title_info">How to use</string>
     <string name="dialog_info_error_image_description">Image for error or info</string>
+    <string name="settings_menu_about">About</string>
+    <string name="menu_how_to_use">How To Use</string>
 </resources>

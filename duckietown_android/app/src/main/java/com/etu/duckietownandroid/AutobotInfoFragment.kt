@@ -1,8 +1,10 @@
 package com.etu.duckietownandroid
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -17,7 +19,7 @@ import kotlinx.coroutines.*
 
 private const val updateInterval = 1000L
 
-class AutobotInfoFragment : Fragment() {
+class AutobotInfoFragment : DuckieFragment(R.string.how_to_use_autobot_info) {
     private var _binding: FragmentAutobotInfoBinding? = null
     private val binding get() = _binding!!
     private var autobot = DeviceItem(0, "Autobot")
@@ -50,7 +52,6 @@ class AutobotInfoFragment : Fragment() {
         binding.joystickButton.setOnClickListener {
             val bundle = bundleOf("number" to number)
             safeNavigation(
-                findNavController(),
                 R.id.action_AutobotInfoFragment_to_fragmentBotControl,
                 bundle
             )
@@ -59,7 +60,6 @@ class AutobotInfoFragment : Fragment() {
         binding.botVideoButton.setOnClickListener {
             val bundle = bundleOf("number" to number, "deviceType" to "autobot")
             safeNavigation(
-                findNavController(),
                 R.id.action_AutobotInfoFragment_to_imageStreamFragment,
                 bundle
             )
@@ -121,7 +121,7 @@ class AutobotInfoFragment : Fragment() {
                                 R.drawable.sad_duck_animation).show(
                                 activity?.supportFragmentManager!!,
                                 "info_error")
-                            findNavController().popBackStack()
+                            findNavController().navigateUp()
                         }
 
                         currentFullStatus.putAll(autobot.fullStatus)
@@ -156,4 +156,5 @@ class AutobotInfoFragment : Fragment() {
             }
         }
     }
+
 }
