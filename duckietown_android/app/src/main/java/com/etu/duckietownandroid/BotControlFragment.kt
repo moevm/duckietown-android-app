@@ -59,7 +59,7 @@ class BotControlFragment : Fragment() {
         return CoroutineScope(Dispatchers.Default).launch {
             while (isActive) {
                 // Fetch device
-                val newAutobot = fetchAutobot(number)
+                val newAutobot = context?.let { LabRequests(it).fetchAutobot(number) }
 
                 // Update UI
                 withContext(Dispatchers.Main) {

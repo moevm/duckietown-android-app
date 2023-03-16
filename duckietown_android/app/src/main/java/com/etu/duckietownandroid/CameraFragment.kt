@@ -1,5 +1,6 @@
 package com.etu.duckietownandroid
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.etu.duckietownandroid.databinding.FragmentCameraBinding
 import com.github.niqdev.mjpeg.DisplayMode
 import com.github.niqdev.mjpeg.Mjpeg
@@ -111,8 +113,12 @@ class CameraFragment : Fragment() {
     }
 
     private fun loadIpCam() {
+        if (context == null) {
+            return
+        }
+        val cameraUrl = LabRequests(context!!).getCameraUrl(camera.number) ?: return
         mjpgStream = Mjpeg.newInstance()
-        mjpgStream?.open("http://autolab.moevm.info/camera_${camera.number}/live.mjpg", TIMEOUT)
+        mjpgStream?.open(cameraUrl, TIMEOUT)
             ?.subscribe(
                 { inputStream: MjpegInputStream ->
                     Log.d("Camera", "opens")

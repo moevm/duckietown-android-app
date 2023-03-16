@@ -115,7 +115,11 @@ class DeviceListFragment : Fragment() {
             while (isActive) {
 
                 // Fetch devices
-                val newData = fetchDevices(type_name)
+                val newData = context?.let { LabRequests(it).fetchDevices(type_name) }
+                if (newData == null) {
+                    delay(delayTime)
+                    continue
+                }
                 data.clear()
                 data.addAll(newData)
 
