@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.etu.duckietownandroid.databinding.FragmentBotControlBinding
 import kotlinx.coroutines.*
 
@@ -17,6 +18,7 @@ class BotControlFragment : Fragment() {
     private var autobot = DeviceItem(0, "Autobot")
     private var number = 0
     private var updateJob: Job? = null
+    private var currentFullStatus = mutableMapOf<StatusKeys, DeviceStatus>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +38,12 @@ class BotControlFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: add control button listeners
+        binding.botInfoJoystic.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        binding.botInfoJoystic.adapter = AutobotStatusItemAdapter(
+            currentFullStatus,
+            arrayOf(StatusKeys.BATTERY, StatusKeys.TEMPERATURE, StatusKeys.CPU)
+        )
     }
 
     override fun onStart() {
@@ -65,6 +72,9 @@ class BotControlFragment : Fragment() {
                                 true -> "Online"
                                 else -> "Offline"
                             }
+
+                        currentFullStatus.putAll(autobot.fullStatus)
+                        binding.botInfoJoystic.adapter?.apply { notifyItemRangeChanged(0, itemCount) }
                     } else {
                         // No internet connection
                         (activity as AppCompatActivity?)?.supportActionBar?.subtitle =

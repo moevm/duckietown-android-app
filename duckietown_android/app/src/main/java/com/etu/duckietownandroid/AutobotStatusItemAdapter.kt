@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class AutobotStatusItemAdapter(private val fullStatus: MutableMap<StatusKeys, DeviceStatus>) :
+class AutobotStatusItemAdapter(
+    private val fullStatus: MutableMap<StatusKeys, DeviceStatus>,
+    private val arrKeys: Array<StatusKeys> = StatusKeys.values()) :
     RecyclerView.Adapter<AutobotStatusItemAdapter.ViewHolder>() {
-
-    private val arrKeys = StatusKeys.values()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView

@@ -18,13 +18,13 @@
         android:text="@string/bot_info_title"
         android:textSize="40sp" />
 
-    <TableLayout
-        android:id="@+id/bot_info"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bot_info_joystic"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
         android:padding="10dp"
-        android:paddingTop="20dp" />
+        android:paddingTop="20dp"
+        android:layout_weight="4" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
