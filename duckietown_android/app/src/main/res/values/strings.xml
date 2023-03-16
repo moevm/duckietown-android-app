@@ -41,6 +41,7 @@
     <string name="filter_option_min_device_temperature">Min device temperature, °C</string>
     <string name="filter_option_max_device_temperature">Max device temperature, °C</string>
     <string name="filter_option_min_memory_used">Min memory used by device, Gb</string>
+
     <!-- Bot info -->
     <string name="bot_status_title">Bot status</string>
     <string name="battery_title">Battery</string>
@@ -54,6 +55,10 @@
     <!-- Bot control -->
     <string name="bot_info_title">Bot information</string>
     <string name="bot_speed_title">Current speed</string>
+    <string name="joystick_forward_button_description">FORWARD</string>
+    <string name="joystick_backward_button_description">BACKWARD</string>
+    <string name="joystick_left_button_description">LEFT</string>
+    <string name="joystick_right_button_description">RIGHT</string>
 
     <!-- Camera -->
     <string name="camera_view_previous_button">Previous</string>
@@ -63,4 +68,5 @@
     <string name="aruco_title">Scan ArUco</string>
     <string name="menu_item_filter">Filter</string>
     <string name="menu_item_settings">Settings</string>
+    <string name="autobot_status_item_placeholder">Unknown info</string>
 </resources>
