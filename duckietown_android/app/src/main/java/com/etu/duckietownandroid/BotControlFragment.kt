@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.etu.duckietownandroid.databinding.FragmentBotControlBinding
 import kotlinx.coroutines.*
 
-private const val updateInterval = 1000L
-
 class BotControlFragment : DuckieFragment(R.string.how_to_use_autobot_control) {
     private var _binding: FragmentBotControlBinding? = null
     private val binding get() = _binding!!
@@ -49,7 +47,7 @@ class BotControlFragment : DuckieFragment(R.string.how_to_use_autobot_control) {
 
     override fun onStart() {
         super.onStart()
-        updateJob = updateAutobot(number + 1, updateInterval)
+        updateJob = updateAutobot(number + 1, getUpdateTime(activity))
         (activity as AppCompatActivity?)?.supportActionBar?.title = getString(
             R.string.autobot_info_title,
             number + 1

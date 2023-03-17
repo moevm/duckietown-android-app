@@ -28,6 +28,8 @@ private val client = OkHttpClient.Builder()
 private const val NUMBER_OF_AUTOBOTS = 13
 private const val NUMBER_OF_WATCHTOWERS = 27
 private const val NUMBER_OF_CAMERAS = 6
+private const val TO_SECONDS = 1000L
+private const val UPDATE_TIME_DEFAULT = 5L * TO_SECONDS
 
 class LabRequests(private val context: Context) {
 
@@ -222,3 +224,7 @@ fun sendRequest(url: String): Boolean? {
     }
 }
 
+fun getUpdateTime(context: Context?): Long {
+    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context ?: return UPDATE_TIME_DEFAULT) ?: return UPDATE_TIME_DEFAULT
+    return sharedPreferences.getString("update_time", null)?.toLong()?.times(TO_SECONDS) ?: UPDATE_TIME_DEFAULT
+}

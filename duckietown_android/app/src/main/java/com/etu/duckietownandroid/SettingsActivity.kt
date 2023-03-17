@@ -3,8 +3,10 @@ package com.etu.duckietownandroid
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.EditTextPreference
 import androidx.preference.PreferenceFragmentCompat
 
 class SettingsActivity : AppCompatActivity() {
@@ -29,6 +31,18 @@ class SettingsActivity : AppCompatActivity() {
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
+            findPreference<EditTextPreference>("update_time")?.setOnPreferenceChangeListener { preference, newValue ->
+                if(checkNumber(newValue)){
+                    true
+                }else{
+                    Toast.makeText(activity, "Update should be positive integer", Toast.LENGTH_SHORT).show()
+                    false
+                }
+            }
+        }
+
+        fun checkNumber(newValue: Any): Boolean{
+            return newValue.toString() != "" && newValue.toString().matches(Regex("\\d*")) && newValue.toString().toLong() > 0
         }
     }
 

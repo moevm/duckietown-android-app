@@ -21,7 +21,6 @@ import kotlinx.coroutines.*
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-private const val updateInterval = 1000L
 
 class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list) {
 
@@ -91,7 +90,7 @@ class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list) {
         val adapter = DeviceAdapter(data, itemListener)
         binding.deviceList.adapter = adapter
 
-        updateJob = updateDevices(typeName, updateInterval)
+        updateJob = updateDevices(typeName, getUpdateTime(activity))
 
         val filterList: List<String> =
             when (typeName) {

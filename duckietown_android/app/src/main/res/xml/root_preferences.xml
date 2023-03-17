@@ -34,6 +34,11 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/camera_url_title" />
-
+    <EditTextPreference
+        android:defaultValue="@string/update_time_default_value"
+        android:key="update_time"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/update_time_title" />
 
 </PreferenceScreen>

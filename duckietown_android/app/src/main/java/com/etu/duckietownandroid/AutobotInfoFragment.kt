@@ -17,8 +17,6 @@ import com.etu.duckietownandroid.databinding.DialogInfoErrorFragmentBinding
 import com.etu.duckietownandroid.databinding.FragmentAutobotInfoBinding
 import kotlinx.coroutines.*
 
-private const val updateInterval = 1000L
-
 class AutobotInfoFragment : DuckieFragment(R.string.how_to_use_autobot_info) {
     private var _binding: FragmentAutobotInfoBinding? = null
     private val binding get() = _binding!!
@@ -79,7 +77,7 @@ class AutobotInfoFragment : DuckieFragment(R.string.how_to_use_autobot_info) {
 
     override fun onStart() {
         super.onStart()
-        updateJob = updateAutobot(number + 1, updateInterval)
+        updateJob = updateAutobot(number + 1, getUpdateTime(activity))
         (activity as AppCompatActivity?)?.supportActionBar?.title = getString(
             R.string.autobot_info_title,
             number + 1
