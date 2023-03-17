@@ -1,15 +1,15 @@
 package com.etu.duckietownandroid
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.etu.duckietownandroid.databinding.FragmentBotControlBinding
 import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class BotControlFragment : DuckieFragment(R.string.how_to_use_autobot_control) {
     private var _binding: FragmentBotControlBinding? = null
@@ -18,6 +18,7 @@ class BotControlFragment : DuckieFragment(R.string.how_to_use_autobot_control) {
     private var number = 0
     private var updateJob: Job? = null
     private var currentFullStatus = mutableMapOf<StatusKeys, DeviceStatus>()
+    private var buttonPressLogs = MutableList(0) {""}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,37 @@ class BotControlFragment : DuckieFragment(R.string.how_to_use_autobot_control) {
             currentFullStatus,
             arrayOf(StatusKeys.BATTERY, StatusKeys.TEMPERATURE, StatusKeys.CPU)
         )
+
+        // Adapter for logs
+        binding.LogsRecyclerView.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, true)
+        binding.LogsRecyclerView.adapter = LogAdapter(buttonPressLogs)
+
+        // Listeners for button presses
+        binding.forwardButton.setOnClickListener {
+            val time= SimpleDateFormat("HH:mm:ss", resources.configuration.locale).format(Date())
+            buttonPressLogs.add(0, "[$time] Forward pressed")
+            binding.LogsRecyclerView.adapter?.notifyItemInserted(0)
+            binding.LogsRecyclerView.scrollToPosition(0)
+        }
+        binding.backwardButton.setOnClickListener {
+            val time= SimpleDateFormat("HH:mm:ss", resources.configuration.locale).format(Date())
+            buttonPressLogs.add(0,"[$time] Backward pressed")
+            binding.LogsRecyclerView.adapter?.notifyItemInserted(0)
+            binding.LogsRecyclerView.scrollToPosition(0)
+        }
+        binding.leftButton.setOnClickListener {
+            val time= SimpleDateFormat("HH:mm:ss", resources.configuration.locale).format(Date())
+            buttonPressLogs.add(0, "[$time] Left pressed")
+            binding.LogsRecyclerView.adapter?.notifyItemInserted(0)
+            binding.LogsRecyclerView.scrollToPosition(0)
+        }
+        binding.rightButton.setOnClickListener {
+            val time= SimpleDateFormat("HH:mm:ss", resources.configuration.locale).format(Date())
+            buttonPressLogs.add(0, "[$time] Right pressed")
+            binding.LogsRecyclerView.adapter?.notifyItemInserted(0)
+            binding.LogsRecyclerView.scrollToPosition(0)
+        }
     }
 
     override fun onStart() {
