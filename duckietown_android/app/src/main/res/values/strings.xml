@@ -74,6 +74,9 @@
     <string name="how_to_use_map">On this screen you can see the map of Autolab polygon. You can set two points and perform some action</string>
     <string name="how_to_use_scan_aruco">On this screen you can scan autobots qr-code to open its status screen</string>
     <string name="dialog_info_error_long_string">Cannot connect to the autobot. Check your internet connection or try later. Just test more lines for error, because on small smartphones no space for text and image</string>
+    <string name="autobot_set_time_no_internet_connection">Cannot connect to the Internet to set time</string>
+    <string name="autobot_set_time_failure">Cannot set time. Request failed</string>
+    <string name="autobot_set_time_success">Time set successfully</string>
 
     <!-- Bot control -->
     <string name="bot_info_title">Bot information</string>
