@@ -111,21 +111,29 @@ class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list) {
     }
 
     private fun updateDevices(type_name: String, delayTime: Long): Job {
-        return CoroutineScope(Dispatchers.Default).launch {
+        return CoroutineScope(Dispatchers.IO).launch {
             while (isActive) {
+                withContext(Dispatchers.Main) {
+                    // Show progress bar if no data
+                    if (data.size == 0) {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                }
 
                 // Fetch devices
-                val newData = let{
-                    try{
+                val newData = let {
+                    try {
                         context?.let { LabRequests(it).fetchDevices(type_name) }
-                    } catch (err: IllegalArgumentException){
+                    } catch (err: IllegalArgumentException) {
                         // User set invalid url
                         DialogInfoErrorFragment(
                             getString(R.string.dialog_info_error_bad_url),
                             getString(R.string.dialog_title_error),
-                            R.drawable.sad_duck_animation).show(
+                            R.drawable.sad_duck_animation
+                        ).show(
                             activity?.supportFragmentManager!!,
-                            "info_error")
+                            "info_error"
+                        )
                         cancel()
                         null
                     }
@@ -144,9 +152,9 @@ class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list) {
                         data.count() { item -> item.is_online },
                         data.size
                     )
+                    binding.progressBar.visibility = View.GONE
                     binding.deviceList.adapter?.notifyDataSetChanged()
                 }
-
                 delay(delayTime)
             }
         }
