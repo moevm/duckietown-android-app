@@ -11,9 +11,17 @@
         app:showAsAction="ifRoom"/>
 
     <item
+        android:id="@+id/menu_how_to_use"
+        android:icon="@drawable/about"
+        android:title="@string/menu_how_to_use"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/menu_item_test"
         android:icon="@drawable/settings"
         android:title="@string/menu_item_settings"
+        android:visible="false"
         app:showAsAction="always"/>
 
 </menu>

@@ -18,7 +18,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ImageStreamFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ImageStreamFragment : Fragment() {
+class ImageStreamFragment : DuckieFragment(R.string.how_to_use_image_stream) {
     // TODO: Rename and change types of parameters
     private var device = DeviceItem(0, "Watchtower")
 

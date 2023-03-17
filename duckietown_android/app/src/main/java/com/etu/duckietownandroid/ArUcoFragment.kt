@@ -21,17 +21,7 @@ import com.etu.duckietownandroid.databinding.FragmentArUcoBinding
 import com.google.common.util.concurrent.ListenableFuture
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ArUcoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ArUcoFragment : Fragment() {
+class ArUcoFragment : DuckieFragment(R.string.how_to_use_scan_aruco) {
 
     private var _binding: FragmentArUcoBinding? = null
     private val binding get() = _binding!!

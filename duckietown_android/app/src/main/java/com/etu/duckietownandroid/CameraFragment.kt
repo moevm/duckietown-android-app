@@ -1,5 +1,4 @@
 package com.etu.duckietownandroid
-
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,37 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.etu.duckietownandroid.databinding.FragmentCameraBinding
-import com.github.niqdev.mjpeg.DisplayMode
-import com.github.niqdev.mjpeg.Mjpeg
-import com.github.niqdev.mjpeg.MjpegInputStream
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.longdo.mjpegviewer.MjpegView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CameraFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CameraFragment : Fragment() {
+class CameraFragment : DuckieFragment(R.string.how_to_use_camera) {
 
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
 
     private var camera = DeviceItem(0, "Camera")
-    private val TIMEOUT = 5
-    private var mjpgStream: Mjpeg? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             camera = AppData.cameras[it.getInt("number")]
         }
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -67,15 +51,12 @@ class CameraFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.leftButton.setOnClickListener {
-            binding.leftButton.isEnabled = false
-            binding.rightButton.isEnabled = false
-
             if((camera.number - 1) == 0) {
                 camera = AppData.cameras[AppData.cameras.size - 1]
             } else {
                 camera = AppData.cameras[camera.number - 2]
             }
-            mjpgStream?.sendConnectionCloseHeader()
+            binding.mjpegview.stopStream()
             loadIpCam()
             (activity as AppCompatActivity?)?.supportActionBar?.title = getString(
                 R.string.camera_info_title,
@@ -88,15 +69,12 @@ class CameraFragment : Fragment() {
         }
 
         binding.rightButton.setOnClickListener {
-            binding.leftButton.isEnabled = false
-            binding.rightButton.isEnabled = false
-
             if(camera.number == AppData.cameras.size) {
                 camera = AppData.cameras[0]
             } else {
                 camera = AppData.cameras[camera.number]
             }
-            mjpgStream?.sendConnectionCloseHeader()
+            binding.mjpegview.stopStream()
             loadIpCam()
             (activity as AppCompatActivity?)?.supportActionBar?.title = getString(
                 R.string.camera_info_title,
@@ -111,22 +89,17 @@ class CameraFragment : Fragment() {
     }
 
     private fun loadIpCam() {
-        mjpgStream = Mjpeg.newInstance()
-        mjpgStream?.open("http://autolab.moevm.info/camera_${camera.number}/live.mjpg", TIMEOUT)
-            ?.subscribe(
-                { inputStream: MjpegInputStream ->
-                    Log.d("Camera", "opens")
-                    binding.mjpegViewDefault.setSource(inputStream)
-                    binding.mjpegViewDefault.setDisplayMode(DisplayMode.BEST_FIT)
-                    binding.mjpegViewDefault.showFps(true)
-                    binding.leftButton.isEnabled = true
-                    binding.rightButton.isEnabled = true
-                }
-            ) { throwable: Throwable ->
-                Log.e(javaClass.simpleName, "mjpeg error", throwable)
-            }
+        if (context == null) {
+            return
+        }
+        val cameraUrl = LabRequests(context!!).getCameraUrl(camera.number) ?: return
+        val viewer: MjpegView = binding.mjpegview
+        viewer.mode = MjpegView.MODE_BEST_FIT
+        viewer.isAdjustHeight = true
+        viewer.supportPinchZoomAndPan = true
+        viewer.setUrl(cameraUrl)
+        viewer.startStream()
         Log.d("Camera", "loadIpCam finished")
-
     }
 
     override fun onResume() {
@@ -136,11 +109,7 @@ class CameraFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        GlobalScope.launch(Dispatchers.IO) {
-            binding.mjpegViewDefault.stopPlayback()
-
-        }
-
+        binding.mjpegview.stopStream()
     }
 
 }

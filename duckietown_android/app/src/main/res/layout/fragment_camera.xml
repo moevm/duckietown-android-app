@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:stream="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,36 +10,41 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.github.niqdev.mjpeg.MjpegSurfaceView
-            android:id="@+id/mjpegViewDefault"
+        <LinearLayout
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
-            app:type="stream_default" />
+            android:layout_weight="8">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/leftButton"
+            <com.longdo.mjpegviewer.MjpegView
+                android:id="@+id/mjpegview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:visibility="gone"
-                android:text="@string/camera_view_previous_button" />
-
-            <Button
-                android:id="@+id/rightButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:visibility="gone"
-                android:text="@string/camera_view_next_button" />
+                android:layout_height="match_parent"/>
         </LinearLayout>
-    </LinearLayout>
 
-</FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/leftButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="@string/camera_view_previous_button" />
+
+        <Button
+            android:id="@+id/rightButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="@string/camera_view_next_button" />
+    </LinearLayout>
+</LinearLayout>
+
+    </FrameLayout>
