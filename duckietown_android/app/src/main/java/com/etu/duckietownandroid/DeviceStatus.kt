@@ -61,3 +61,11 @@ data class DeviceStatusMemoryInfo(
         return "Memory (used/total): ${String.format("%.2f", used.toDouble() / TO_GB)}/${String.format("%.2f", total.toDouble() / TO_GB)} Gb"
     }
 }
+
+data class DeviceLastUpdateTime(
+    val lastUpdateTime: String
+): DeviceStatus{
+    override fun getStingStatus(): String {
+        return "Last update time: $lastUpdateTime"
+    }
+}

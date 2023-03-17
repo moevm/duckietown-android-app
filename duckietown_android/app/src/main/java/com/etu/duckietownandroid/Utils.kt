@@ -1,14 +1,13 @@
 package com.etu.duckietownandroid
 
 import android.content.Context
-import android.os.Bundle
-import androidx.annotation.IdRes
-import androidx.navigation.NavController
 import androidx.preference.PreferenceManager
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 data class AutobotInfo(
@@ -76,6 +75,12 @@ class LabRequests(private val context: Context) {
                 } else {
                     val gson = GsonBuilder().create()
                     val data = gson.fromJson(response?.body()?.string(), AutobotInfo::class.java)
+
+                    val time =
+                        SimpleDateFormat("HH:mm:ss", context.resources.configuration.locale).format(
+                            Date()
+                        )
+
                     return DeviceItem(
                         index,
                         "Autobot",
@@ -87,7 +92,8 @@ class LabRequests(private val context: Context) {
                             StatusKeys.BATTERY to data.battery,
                             StatusKeys.MEMORY to data.memory,
                             StatusKeys.SWAP to data.swap,
-                            StatusKeys.DISK to data.disk
+                            StatusKeys.DISK to data.disk,
+                            StatusKeys.LAST_UPDATE_TIME to DeviceLastUpdateTime(time)
                         )
                     )
                 }
@@ -153,7 +159,8 @@ class LabRequests(private val context: Context) {
     }
 
     fun getCameraUrl(index: Int): String? {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context) ?: return null
+        val sharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(context) ?: return null
         var cameraUrl = sharedPreferences.getString("camera_url", "")!!
         val web = sharedPreferences.getBoolean("web", false)
         val labUrl = if (web) {
@@ -172,7 +179,8 @@ class LabRequests(private val context: Context) {
     }
 
     fun getAutobotUrl(index: Int): String? {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context) ?: return null
+        val sharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(context) ?: return null
         var autobotUrl = sharedPreferences.getString("bot_url", "")!!
         val web = sharedPreferences.getBoolean("web", false)
         val labUrl = if (web) {
@@ -191,7 +199,8 @@ class LabRequests(private val context: Context) {
     }
 
     fun getWatchtowerUrl(index: Int): String? {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context) ?: return null
+        val sharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(context) ?: return null
         var watchtowerUrl = sharedPreferences.getString("watchtower_url", "")!!
         val web = sharedPreferences.getBoolean("web", false)
         val labUrl = if (web) {
@@ -208,6 +217,13 @@ class LabRequests(private val context: Context) {
 
         return labUrl + watchtowerUrl
     }
+
+    fun getSetAutobotTimeUrl(index: Int): String? {
+        val sharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(context) ?: return null
+        return "http://MISSING_URL_$index"
+    }
+
 }
 
 fun sendRequest(url: String): Boolean? {
@@ -225,6 +241,9 @@ fun sendRequest(url: String): Boolean? {
 }
 
 fun getUpdateTime(context: Context?): Long {
-    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context ?: return UPDATE_TIME_DEFAULT) ?: return UPDATE_TIME_DEFAULT
-    return sharedPreferences.getString("update_time", null)?.toLong()?.times(TO_SECONDS) ?: UPDATE_TIME_DEFAULT
+    val sharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(context ?: return UPDATE_TIME_DEFAULT)
+            ?: return UPDATE_TIME_DEFAULT
+    return sharedPreferences.getString("update_time", null)?.toLong()?.times(TO_SECONDS)
+        ?: UPDATE_TIME_DEFAULT
 }
