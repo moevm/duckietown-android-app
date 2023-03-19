@@ -60,7 +60,8 @@
     <string name="temp_title">Temperature</string>
     <string name="memory_title">Memory(used)</string>
     <string name="joystick_title">Joystick</string>
-    <string name="demo_title">Start Demo</string>
+    <string name="start_demo_title">Start Demo</string>
+    <string name="stop_demo_title">Stop Demo</string>
     <string name="bot_video_title">Video</string>
     <string name="set_time_title">Set time</string>
     <string name="autobot_start_demo_connection_failed">Cannot connect to the autobot. Check your internet connection or try later</string>
