@@ -48,11 +48,11 @@
     <string name="map_send_button">Send</string>
 
     <string name="filter_option_only_online">Only online</string>
-    <string name="filter_option_max_battery">Max battery in %</string>
+    <string name="filter_option_max_battery">Battery range in %</string>
     <string name="filter_button_apply">Apply</string>
     <string name="filter_option_min_device_temperature">Min device temperature, °C</string>
     <string name="filter_option_max_device_temperature">Max device temperature, °C</string>
-    <string name="filter_option_min_memory_used">Min memory used by device, Gb</string>
+    <string name="filter_option_min_memory_used">Max memory left on device, Gb</string>
 
     <!-- Bot info -->
     <string name="bot_status_title">Bot status</string>
@@ -99,4 +99,6 @@
     <string name="dialog_info_error_image_description">Image for error or info</string>
     <string name="settings_menu_about">About</string>
     <string name="menu_how_to_use">How To Use</string>
+    <string name="menu_item_virtual_scan_01">SCAN</string>
+    <string name="filter_button_reset">Reset</string>
 </resources>

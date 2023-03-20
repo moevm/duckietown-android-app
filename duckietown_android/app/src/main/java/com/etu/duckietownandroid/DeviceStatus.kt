@@ -4,6 +4,8 @@ const val TO_GB = 1024 * 1024 * 1024
 
 interface DeviceStatus{
     fun getStingStatus(): String
+
+    fun getValueForFilter(): Double
 }
 
 data class DeviceStatusTemperature(
@@ -12,6 +14,8 @@ data class DeviceStatusTemperature(
     override fun getStingStatus(): String {
         return "Temperature: $currentTemperature°C"
     }
+
+    override fun getValueForFilter(): Double = currentTemperature.toDouble()
 }
 
 data class DeviceStatusBatteryInfo(
@@ -21,6 +25,8 @@ data class DeviceStatusBatteryInfo(
     override fun getStingStatus(): String {
         return "Battery: $percentage%"
     }
+
+    override fun getValueForFilter(): Double = percentage.toDouble()
 }
 
 data class DeviceStatusCPUInfo(
@@ -30,6 +36,8 @@ data class DeviceStatusCPUInfo(
     override fun getStingStatus(): String {
         return "CPU load: $percentage%"
     }
+
+    override fun getValueForFilter(): Double = percentage.toDouble()
 }
 
 data class DeviceStatusDiskInfo(
@@ -40,6 +48,8 @@ data class DeviceStatusDiskInfo(
     override fun getStingStatus(): String {
         return "Disk (used/total): ${String.format("%.2f", used.toDouble() / TO_GB)}/${String.format("%.2f", total.toDouble() / TO_GB)} Gb"
     }
+
+    override fun getValueForFilter(): Double = used.toDouble() / TO_GB
 }
 
 data class DeviceStatusSwapInfo(
@@ -50,6 +60,8 @@ data class DeviceStatusSwapInfo(
     override fun getStingStatus(): String {
         return "Swap (used/total): ${String.format("%.2f", used.toDouble() / TO_GB)}/${String.format("%.2f", total.toDouble() / TO_GB)} Gb"
     }
+
+    override fun getValueForFilter(): Double = used.toDouble() / TO_GB
 }
 
 data class DeviceStatusMemoryInfo(
@@ -60,4 +72,6 @@ data class DeviceStatusMemoryInfo(
     override fun getStingStatus(): String {
         return "Memory (used/total): ${String.format("%.2f", used.toDouble() / TO_GB)}/${String.format("%.2f", total.toDouble() / TO_GB)} Gb"
     }
+
+    override fun getValueForFilter(): Double = (total - used).toDouble() / TO_GB
 }

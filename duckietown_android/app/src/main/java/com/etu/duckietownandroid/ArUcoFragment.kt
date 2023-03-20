@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,7 +15,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import com.etu.duckietownandroid.databinding.FragmentArUcoBinding
@@ -62,6 +63,11 @@ class ArUcoFragment : DuckieFragment(R.string.how_to_use_scan_aruco) {
         (activity as AppCompatActivity?)?.supportActionBar?.title = getString(R.string.aruco_title)
     }
 
+    override fun onStop() {
+        super.onStop()
+        cameraProviderFuture!!.get().unbindAll()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -99,7 +105,7 @@ class ArUcoFragment : DuckieFragment(R.string.how_to_use_scan_aruco) {
     }
 
     private fun bindCameraPreview(cameraProvider: ProcessCameraProvider) {
-        previewView?.setPreferredImplementationMode(PreviewView.ImplementationMode.SURFACE_VIEW)
+        previewView?.preferredImplementationMode = PreviewView.ImplementationMode.SURFACE_VIEW
         val preview: Preview = Preview.Builder().build()
         val cameraSelector = CameraSelector.Builder()
             .requireLensFacing(CameraSelector.LENS_FACING_BACK)
@@ -107,5 +113,16 @@ class ArUcoFragment : DuckieFragment(R.string.how_to_use_scan_aruco) {
         preview.setSurfaceProvider(previewView?.createSurfaceProvider())
         val camera: Camera =
             cameraProvider.bindToLifecycle(this as LifecycleOwner, cameraSelector, preview)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.menu_virtual_scan_01)
+        item.isVisible = true
+        item.setOnMenuItemClickListener {
+            val bundle = bundleOf("number" to 0)
+            safeNavigation(R.id.action_arUcoFragment_to_AutobotInfoFragment, bundle)
+            true
+        }
     }
 }

@@ -17,9 +17,9 @@
         android:text="@string/filter_option_only_online"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-    <TextView
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/filter_max_battery_hint"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/filter_option_max_battery"
         android:labelFor="@+id/filter_max_battery"
@@ -63,24 +63,41 @@
         android:importantForAutofill="no" />
 
     <TextView
-        android:id="@+id/filter_label_for_min_memory_used"
+        android:id="@+id/filter_label_for_max_memory_left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/filter_option_min_memory_used"
-        android:labelFor="@+id/filter_min_memory_used"
+        android:labelFor="@+id/filter_max_memory_left"
         android:textSize="@dimen/filter_hints_size"/>
 
     <EditText
-        android:id="@+id/filter_min_memory_used"
+        android:id="@+id/filter_max_memory_left"
         android:layout_width="match_parent"
         android:layout_height="@dimen/filter_editable_height"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="number|numberDecimal|numberSigned"/>
 
-    <Button
-        android:id="@+id/filter_button_apply"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/filter_button_apply" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/filter_button_reset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_margin="@dimen/filter_margin_button"
+            android:text="@string/filter_button_reset" />
+
+        <Button
+            android:id="@+id/filter_button_apply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_margin="@dimen/filter_margin_button"
+            android:text="@string/filter_button_apply" />
+
+    </LinearLayout>
 </LinearLayout>
