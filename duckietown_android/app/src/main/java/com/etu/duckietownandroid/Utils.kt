@@ -221,7 +221,13 @@ class LabRequests(private val context: Context) {
     fun getSetAutobotTimeUrl(index: Int): String? {
         val sharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(context) ?: return null
-        return "http://MISSING_URL_$index"
+        val web = sharedPreferences.getBoolean("web", false)
+        val labUrl = if (web) {
+            sharedPreferences.getString("external_url", "")!!
+        } else {
+            sharedPreferences.getString("local_url", "")!!
+        }
+        return "$labUrl/MISSING_URL_$index"
     }
 
 }

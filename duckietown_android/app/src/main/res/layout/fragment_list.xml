@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/device_item_short_status"
-            android:text="@string/device_list_item_placeholder" />
+            android:text="" />
 
         <ProgressBar
             android:id="@+id/progressBar"

@@ -11,6 +11,8 @@ import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.Date
 
+private const val MAX_PRESS_LOGS_LENGTH = 30
+
 class BotControlFragment : DuckieFragment(R.string.how_to_use_autobot_control) {
     private var _binding: FragmentBotControlBinding? = null
     private val binding get() = _binding!!
@@ -53,25 +55,31 @@ class BotControlFragment : DuckieFragment(R.string.how_to_use_autobot_control) {
         // Listeners for button presses
         binding.forwardButton.setOnClickListener {
             val time= SimpleDateFormat("HH:mm:ss", resources.configuration.locale).format(Date())
-            buttonPressLogs.add(0, "[$time] Forward pressed")
-            binding.LogsRecyclerView.adapter?.notifyItemInserted(0)
-            binding.LogsRecyclerView.scrollToPosition(0)
+            addPressLog("[$time] Forward pressed")
         }
         binding.backwardButton.setOnClickListener {
             val time= SimpleDateFormat("HH:mm:ss", resources.configuration.locale).format(Date())
-            buttonPressLogs.add(0,"[$time] Backward pressed")
-            binding.LogsRecyclerView.adapter?.notifyItemInserted(0)
-            binding.LogsRecyclerView.scrollToPosition(0)
+            addPressLog("[$time] Backward pressed")
         }
         binding.leftButton.setOnClickListener {
             val time= SimpleDateFormat("HH:mm:ss", resources.configuration.locale).format(Date())
-            buttonPressLogs.add(0, "[$time] Left pressed")
-            binding.LogsRecyclerView.adapter?.notifyItemInserted(0)
-            binding.LogsRecyclerView.scrollToPosition(0)
+            addPressLog("[$time] Left pressed")
         }
         binding.rightButton.setOnClickListener {
             val time= SimpleDateFormat("HH:mm:ss", resources.configuration.locale).format(Date())
-            buttonPressLogs.add(0, "[$time] Right pressed")
+            addPressLog("[$time] Right pressed")
+        }
+    }
+
+    private fun addPressLog(msg: String){
+        if(buttonPressLogs.size >= MAX_PRESS_LOGS_LENGTH){
+            buttonPressLogs.removeLast()
+            buttonPressLogs.add(0, msg)
+            binding.LogsRecyclerView.adapter?.notifyItemRemoved(buttonPressLogs.size - 1)
+            binding.LogsRecyclerView.adapter?.notifyItemInserted(0)
+            binding.LogsRecyclerView.scrollToPosition(0)
+        }else{
+            buttonPressLogs.add(0, msg)
             binding.LogsRecyclerView.adapter?.notifyItemInserted(0)
             binding.LogsRecyclerView.scrollToPosition(0)
         }
