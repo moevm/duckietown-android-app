@@ -7,4 +7,5 @@ enum class StatusKeys {
     MEMORY,
     SWAP,
     DISK,
+    LAST_UPDATE_TIME
 }
