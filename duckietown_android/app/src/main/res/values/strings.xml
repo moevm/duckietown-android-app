@@ -29,7 +29,10 @@
     <string name="watchtower_url_title">Watchtower url</string>
     <string name="update_time_title">Update time in seconds</string>
     <string name="menu_about_title">About</string>
-    <string name="menu_about_text">This application created for Duckietown Autolab in ETU. Authors are Selezneva Anastasia, Tinyakov Sergey and Tsaplin Ilya</string>
+    <string name="menu_about_text">
+        For autobot\'s and watchtower\'s urls enter a value "00" as device number: autobot00, watchtower00. \n
+        \n
+        This application created for Duckietown Autolab in ETU. Authors are Selezneva Anastasia, Tinyakov Sergey and Tsaplin Ilya.</string>
     <string name="menu_about_positive_button_text">OK</string>
 
     <!-- Default Url Values -->
