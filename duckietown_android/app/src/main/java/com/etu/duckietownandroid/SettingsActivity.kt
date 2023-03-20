@@ -3,11 +3,17 @@ package com.etu.duckietownandroid
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.EditTextPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +35,28 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+
+        val urlListener = { preference: Preference, newValue: Any ->
+            if(URLUtil.isValidUrl(newValue.toString())){
+                Toast.makeText(activity, "Valid url", Toast.LENGTH_SHORT).show()
+                true
+            }else{
+                Toast.makeText(activity, "NOT valid URL", Toast.LENGTH_SHORT).show()
+                false
+            }
+        }
+
+        val partialUrlListener = { preference: Preference, newValue: Any ->
+            if(checkUrl(newValue.toString())) {
+                Toast.makeText(activity, "Valid url", Toast.LENGTH_SHORT).show()
+                true
+            }else{
+                Toast.makeText(activity, "NOT valid URL", Toast.LENGTH_SHORT).show()
+                false
+            }
+        }
+
+        @OptIn(ExperimentalCoroutinesApi::class)
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             findPreference<EditTextPreference>("update_time")?.setOnPreferenceChangeListener { preference, newValue ->
@@ -39,10 +67,21 @@ class SettingsActivity : AppCompatActivity() {
                     false
                 }
             }
+
+            findPreference<EditTextPreference>("local_url")?.setOnPreferenceChangeListener(urlListener)
+            findPreference<EditTextPreference>("external_url")?.setOnPreferenceChangeListener(urlListener)
+
+            findPreference<EditTextPreference>("bot_url")?.setOnPreferenceChangeListener(partialUrlListener)
+            findPreference<EditTextPreference>("watchtower_url")?.setOnPreferenceChangeListener(partialUrlListener)
+            findPreference<EditTextPreference>("camera_url")?.setOnPreferenceChangeListener(partialUrlListener)
         }
 
         fun checkNumber(newValue: Any): Boolean{
             return newValue.toString() != "" && newValue.toString().matches(Regex("\\d*")) && newValue.toString().toLong() > 0
+        }
+
+        fun checkUrl(url: String): Boolean {
+            return url.matches(Regex("([/][\\w&&[^_1-9]]+([.][\\w&&[^_1-9]]+)?){0,}[\\w&&[^_0-9]](([_][0])|([0]{2}))([/][\\w&&[^_1-9]]+([.][\\w&&[^_0-9]]+)?){1,}"))
         }
     }
 
