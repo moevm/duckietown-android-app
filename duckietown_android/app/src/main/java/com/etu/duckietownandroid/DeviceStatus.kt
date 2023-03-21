@@ -75,3 +75,13 @@ data class DeviceStatusMemoryInfo(
 
     override fun getValueForFilter(): Double = (total - used).toDouble() / TO_GB
 }
+
+data class DeviceLastUpdateTime(
+    val lastUpdateTime: String
+): DeviceStatus{
+    override fun getStingStatus(): String {
+        return "Last update time: $lastUpdateTime"
+    }
+
+    override fun getValueForFilter(): Double = 0.0
+}

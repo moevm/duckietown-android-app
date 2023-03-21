@@ -9,31 +9,36 @@
         android:key="local_url"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/local_url_title" />
+        android:title="@string/local_url_title"
+        android:dialogMessage="@string/menu_url_hint"/>
     <EditTextPreference
         android:defaultValue="@string/external_url_default_value"
         android:key="external_url"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/external_url_title" />
+        android:title="@string/external_url_title"
+        android:dialogMessage="@string/menu_url_hint"/>
     <EditTextPreference
         android:defaultValue="@string/bot_url_default_value"
         android:key="bot_url"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/bot_url_title" />
+        android:title="@string/bot_url_title"
+        android:dialogMessage="@string/menu_autobot_route_hint"/>
     <EditTextPreference
         android:defaultValue="@string/watchtower_url_default_value"
         android:key="watchtower_url"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/watchtower_url_title" />
+        android:title="@string/watchtower_url_title"
+        android:dialogMessage="@string/menu_watchtower_route_hint"/>
     <EditTextPreference
         android:defaultValue="@string/camera_url_default_value"
         android:key="camera_url"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/camera_url_title" />
+        android:title="@string/camera_url_title"
+        android:dialogMessage="@string/menu_camera_route_hint"/>
     <EditTextPreference
         android:defaultValue="@string/update_time_default_value"
         android:key="update_time"

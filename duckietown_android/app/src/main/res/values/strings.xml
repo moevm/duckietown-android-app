@@ -29,7 +29,17 @@
     <string name="watchtower_url_title">Watchtower url</string>
     <string name="update_time_title">Update time in seconds</string>
     <string name="menu_about_title">About</string>
-    <string name="menu_about_text">This application created for Duckietown Autolab in ETU. Authors are Selezneva Anastasia, Tinyakov Sergey and Tsaplin Ilya</string>
+    <string name="menu_about_text">This application created for Duckietown Autolab in ETU. Authors are Selezneva Anastasia, Tinyakov Sergey and Tsaplin Ilya.</string>
+    <string name="menu_url_hint">The url must begin with protocol, for example, http</string>
+    <string name="menu_autobot_route_hint">
+        For the route last two zeros define the autobot number.
+        For example, for Autobot 07 url \"/route/autobot00/status\" will be changed to \"/route/autobot07/status\"</string>
+    <string name="menu_watchtower_route_hint">
+        For the route last two zeros define the watchtower number.
+        For example, for Watchtower07 url \"/route/watchtower00/status\" will be changed to \"/route/watchtower07/status\"</string>
+    <string name="menu_camera_route_hint">
+        For the route last zero define the camera number.
+        For example, for Camera 7 \"/route/camera0/video\" will be changed to \"/route/camera7/video\"</string>
     <string name="menu_about_positive_button_text">OK</string>
 
     <!-- Default Url Values -->
@@ -60,7 +70,8 @@
     <string name="temp_title">Temperature</string>
     <string name="memory_title">Memory(used)</string>
     <string name="joystick_title">Joystick</string>
-    <string name="demo_title">Start Demo</string>
+    <string name="start_demo_title">Start Demo</string>
+    <string name="stop_demo_title">Stop Demo</string>
     <string name="bot_video_title">Video</string>
     <string name="set_time_title">Set time</string>
     <string name="autobot_start_demo_connection_failed">Cannot connect to the autobot. Check your internet connection or try later</string>
@@ -74,6 +85,9 @@
     <string name="how_to_use_map">On this screen you can see the map of Autolab polygon. You can set two points and perform some action</string>
     <string name="how_to_use_scan_aruco">On this screen you can scan autobots qr-code to open its status screen</string>
     <string name="dialog_info_error_long_string">Cannot connect to the autobot. Check your internet connection or try later. Just test more lines for error, because on small smartphones no space for text and image</string>
+    <string name="autobot_set_time_no_internet_connection">Cannot connect to the Internet to set time</string>
+    <string name="autobot_set_time_failure">Cannot set time. Request failed</string>
+    <string name="autobot_set_time_success">Time set successfully</string>
 
     <!-- Bot control -->
     <string name="bot_info_title">Bot information</string>
