@@ -201,7 +201,7 @@ class AutobotInfoFragment : DuckieFragment(R.string.how_to_use_autobot_info) {
                     true -> {
                         Toast.makeText(activity, "Demo $statusStr!", Toast.LENGTH_SHORT).show()
                         isDemoStarted = !isDemoStarted
-                        binding.demoButton.text = buttonText
+                        _binding?.demoButton?.text = buttonText
                     }
                     false -> Toast.makeText(activity, "Demo NOT $statusStr!", Toast.LENGTH_SHORT)
                         .show()
@@ -214,7 +214,7 @@ class AutobotInfoFragment : DuckieFragment(R.string.how_to_use_autobot_info) {
                         "info_error"
                     )
                 }
-                binding.demoButton.isEnabled = true
+                _binding?.demoButton?.isEnabled = true
             }
         }
     }
