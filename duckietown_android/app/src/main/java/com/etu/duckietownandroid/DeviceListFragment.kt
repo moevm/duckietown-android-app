@@ -1,9 +1,7 @@
 package com.etu.duckietownandroid
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -11,44 +9,64 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.etu.duckietownandroid.databinding.FragmentListBinding
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.*
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
+private const val LOW_BATTERY_VALUE = 10
+private const val OVERHEAT_VALUE = 100
+private const val LOW_MEMORY_VALUE = 0.5
 
-class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list) {
+class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list), DialogFilterFragment.DeviceFilterInterface {
 
     private var _binding: FragmentListBinding? = null
     private var data = MutableList<DeviceItem>(0) { DeviceItem(0, "name") }
+    private var filteredData = MutableList<DeviceItem>(0) { DeviceItem(0, "name") }
     private var itemListener = { position: Int -> adapterOnItemClick(position) }
+    private var filter = DeviceFilter()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-
     private val tagFilters = mapOf(
-        "Online" to {
+        "Online" to { is_checked: Boolean ->
             //TODO call filter
-            Log.d("FILTER", "Online filter called")
+            Log.d("FILTER", "Online filter called, checked: $is_checked")
+            filter.onlyOnline = is_checked
+            applyFilter()
         },
-        "Low battery" to {
+        "Low battery" to {is_checked ->
             //TODO call filter
-            Log.d("FILTER", "Low battery filter called")
+            Log.d("FILTER", "Low battery filter called, checked: $is_checked")
+            if(is_checked){
+                filter.addConstraint(StatusKeys.BATTERY, null, LOW_BATTERY_VALUE.toDouble())
+            }else{
+                filter.removeConstraint(StatusKeys.BATTERY)
+            }
+            applyFilter()
         },
-        "Overheat" to {
+        "Overheat" to {is_checked ->
             //TODO call filter
-            Log.d("FILTER", "Overheat filter called")
+            Log.d("FILTER", "Overheat filter called, checked: $is_checked")
+            if(is_checked){
+                filter.addConstraint(StatusKeys.TEMPERATURE, OVERHEAT_VALUE.toDouble(), null)
+            }else{
+                filter.removeConstraint(StatusKeys.TEMPERATURE)
+            }
+            applyFilter()
         },
-        "Low memory" to {
+        "Low memory" to {is_checked ->
             //TODO call filter
-            Log.d("FILTER", "Low memory filter called")
+            Log.d("FILTER", "Low memory filter called, checked: $is_checked")
+            if(is_checked){
+                filter.addConstraint(StatusKeys.MEMORY, null, LOW_MEMORY_VALUE)
+            }else{
+                filter.removeConstraint(StatusKeys.MEMORY)
+            }
+            applyFilter()
         }
     )
     private val autobotFilters = listOf("Online", "Low battery", "Overheat", "Low memory")
@@ -87,7 +105,7 @@ class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list) {
         )
         binding.deviceList.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        val adapter = DeviceAdapter(data, itemListener)
+        val adapter = DeviceAdapter(filteredData, itemListener)
         binding.deviceList.adapter = adapter
 
         updateJob = updateDevices(typeName, getUpdateTime(activity))
@@ -103,8 +121,9 @@ class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list) {
         filterList.forEach { name ->
             val chip = Chip(context)
             chip.text = name
-            chip.setOnClickListener {
-                tagFilters[name]?.let { it1 -> it1() }
+            chip.isCheckable = true
+            chip.setOnCheckedChangeListener{_, is_checked ->
+                tagFilters[name]?.let { it1 -> it1(is_checked) }
             }
             binding.filterGroup.addView(chip)
         }
@@ -147,13 +166,8 @@ class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list) {
 
                 // Update UI
                 withContext(Dispatchers.Main) {
-                    binding.deviceListHeader.text = getString(
-                        R.string.device_list_status,
-                        data.count() { item -> item.is_online },
-                        data.size
-                    )
+                    applyFilter()
                     binding.progressBar.visibility = View.GONE
-                    binding.deviceList.adapter?.notifyDataSetChanged()
                 }
                 delay(delayTime)
             }
@@ -182,7 +196,7 @@ class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list) {
         val item = menu.findItem(R.id.menu_filter)
         item.isVisible = true
         item.setOnMenuItemClickListener {
-            val filter = DialogFilterFragment()
+            val filter = DialogFilterFragment(this)
             filter.show(activity?.supportFragmentManager!!, "dialog")
             true
         }
@@ -212,5 +226,23 @@ class DeviceListFragment : DuckieFragment(R.string.how_to_use_device_list) {
         super.onDestroyView()
         updateJob?.cancel()
         _binding = null
+    }
+
+    override fun getFilter(): DeviceFilter = filter
+
+    override fun applyFilter(newData: MutableList<DeviceItem>?) {
+        val newFilteredData = filter.applyFilter(data)
+        filteredData.clear()
+        filteredData.addAll(newFilteredData)
+        updateList()
+    }
+
+    private fun updateList(){
+        binding.deviceListHeader.text = getString(
+            R.string.device_list_status,
+            filteredData.count() { item -> item.is_online },
+            filteredData.size
+        )
+        binding.deviceList.adapter?.notifyDataSetChanged()
     }
 }

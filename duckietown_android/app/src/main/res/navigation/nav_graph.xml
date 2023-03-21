@@ -72,5 +72,9 @@
         android:id="@+id/arUcoFragment"
         android:name="com.etu.duckietownandroid.ArUcoFragment"
         android:label="fragment_ar_uco"
-        tools:layout="@layout/fragment_ar_uco" />
+        tools:layout="@layout/fragment_ar_uco" >
+        <action
+            android:id="@+id/action_arUcoFragment_to_AutobotInfoFragment"
+            app:destination="@id/AutobotInfoFragment" />
+    </fragment>
 </navigation>
