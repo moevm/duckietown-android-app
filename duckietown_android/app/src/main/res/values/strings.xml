@@ -29,10 +29,17 @@
     <string name="watchtower_url_title">Watchtower url</string>
     <string name="update_time_title">Update time in seconds</string>
     <string name="menu_about_title">About</string>
-    <string name="menu_about_text">
-        For autobot\'s and watchtower\'s urls enter a value "00" as device number: autobot00, watchtower00. \n
-        \n
-        This application created for Duckietown Autolab in ETU. Authors are Selezneva Anastasia, Tinyakov Sergey and Tsaplin Ilya.</string>
+    <string name="menu_about_text">This application created for Duckietown Autolab in ETU. Authors are Selezneva Anastasia, Tinyakov Sergey and Tsaplin Ilya.</string>
+    <string name="menu_url_hint">The url must begin with protocol, for example, http</string>
+    <string name="menu_autobot_route_hint">
+        For the route last two zeros define the autobot number.
+        For example, for Autobot 07 url \"/route/autobot00/status\" will be changed to \"/route/autobot07/status\"</string>
+    <string name="menu_watchtower_route_hint">
+        For the route last two zeros define the watchtower number.
+        For example, for Watchtower07 url \"/route/watchtower00/status\" will be changed to \"/route/watchtower07/status\"</string>
+    <string name="menu_camera_route_hint">
+        For the route last zero define the camera number.
+        For example, for Camera 7 \"/route/camera0/video\" will be changed to \"/route/camera7/video\"</string>
     <string name="menu_about_positive_button_text">OK</string>
 
     <!-- Default Url Values -->

@@ -41,8 +41,8 @@ class MapFragment : DuckieFragment(R.string.how_to_use_map) {
             val fp = binding.mapImage.firstPoint
             val sp = binding.mapImage.secondPoint
             if(fp != null && sp != null){
-                performAction(fp, sp)
                 copyPointsToClipboard(fp, sp)
+                performAction(fp, sp)
             }else{
                 Toast.makeText(activity, "Set two points on map", Toast.LENGTH_SHORT).show()
             }
@@ -51,7 +51,7 @@ class MapFragment : DuckieFragment(R.string.how_to_use_map) {
     }
 
     private fun performAction(p1: Pair<Float, Float>, p2: Pair<Float, Float>){
-        Toast.makeText(activity, "Current points are $p1 and $p2", Toast.LENGTH_LONG).show()
+        Toast.makeText(activity, "Current points are $p1 and $p2\nPoints coordinates are copied to clipboard", Toast.LENGTH_LONG).show()
     }
 
     private fun copyPointsToClipboard(p1: Pair<Float, Float>, p2: Pair<Float, Float>) {
